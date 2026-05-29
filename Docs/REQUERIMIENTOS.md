@@ -1,0 +1,10 @@
+- Login
+- Usuarios
+- Carga de manifiestos
+- Carga de casilleros
+- Escaneo automático
+- Integración báscula
+- Sonidos
+- Historial
+- Exportación Excel
+- Auditoría
