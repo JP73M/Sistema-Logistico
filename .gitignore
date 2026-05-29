@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Entornos virtuales
+venv/
+.env
+
+# Archivos temporales
+*.log
+
+# VS Code
+.vscode/
+
+# Exportaciones
+Exports/
+
+# Archivos cargados
+Uploads/
+
+# Windows
+Thumbs.db
+Desktop.ini
