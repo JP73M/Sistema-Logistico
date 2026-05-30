@@ -14,10 +14,18 @@ venv/
 .vscode/
 
 # Exportaciones
-Exports/
+Exports/excel/*
+Exports/pdf/*
+
+!Exports/excel/.gitkeep
+!Exports/pdf/.gitkeep
 
 # Archivos cargados
-Uploads/
+Uploads/manifiestos/*
+Uploads/casilleros/*
+
+!Uploads/manifiestos/.gitkeep
+!Uploads/casilleros/.gitkeep
 
 # Windows
 Thumbs.db
