@@ -1,0 +1,16 @@
+@font-face {
+    font-family: 'Milliard';
+    src: url(../fonts/milliard/Rene\ Bieder\ \ Milliard\ Book.otf);
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'Milliard';
+    src: url(../fonts/milliard/Rene\ Bieder\ \ Milliard\ SemiBold.otf);
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: 'Milliard';
+    src: url(../fonts/milliard/Rene\ Bieder\ \ Milliard\ Black.otf);
+}

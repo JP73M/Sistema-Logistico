@@ -1,8 +1,132 @@
+*{
+    font-family: 'Milliard', sans-serif;
+}
+
 .logo_web{
     width: 200px;
 }
 
 .background{
-    background: #27348b;
-    min-height: 100vh;
+
+    background:#27348b;
+
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
 }
+
+
+.login-container{
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+
+
+.logo_login{
+
+    width:180px;
+    height:auto;
+    margin-bottom:40px;
+}
+
+.login-form{
+
+    width:350px;
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+}
+
+
+.input-box{
+
+    width:350px;
+    height:50px;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    border:1px solid rgba(255,255,255,0.5);
+    border-radius:30px;
+
+    padding:0 20px;
+
+}
+
+
+
+.input-box i{
+
+    color:white;
+
+    font-size:18px;
+
+}
+
+
+.input-box input{
+
+    width:100%;
+
+    background:transparent;
+
+    border:none;
+    outline:none;
+
+
+    color:white;
+
+    font-size:15px;
+
+}
+
+.input-icon{
+
+    width:20px;
+
+    height:20px;
+
+    object-fit:contain;
+
+}
+
+.input-box input::placeholder{
+
+    color:white;
+
+}
+
+.input-box:focus-within{
+
+    border:2px solid white;
+
+    box-shadow:0 0 15px rgba(255,255,255,0.25);
+
+}
+
+.btn-login{
+
+    height:50px;
+    border-radius:30px;
+    border:none;
+    background:white;
+    color:#27348b;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.btn-login:hover{
+
+    background:#ffd028;
+
+    box-shadow:0 8px 20px rgba(0,0,0,0.25);
+
+    transform:translateY(-3px);
+
+}
+
