@@ -10,13 +10,13 @@
 <body class="background">
 
 
-    <div class="login-container">
+    <div class="login-card">
 
 
         <img 
         class="logo_login"
-        src="../assets/img/Logo_D_Blue-removebg-preview.png" 
-        alt="Logo">
+        src="../assets/img/Logo_D_Blue-removebg-preview.png"
+        alt="logo">
 
 
         <div class="login-form">
@@ -24,11 +24,13 @@
 
             <div class="input-box">
 
-                <input
+                <input 
                 type="text"
                 placeholder="Usuario">
 
-                <img class="input-icon" src="../assets/icons/user.png" alt="Usuario">
+                <img 
+                class="input-icon"
+                src="../assets/icons/user.png">
 
             </div>
 
@@ -36,26 +38,32 @@
 
             <div class="input-box">
 
-                <input
+                <input 
                 type="password"
                 placeholder="Contraseña">
 
-                <img class="input-icon" src="../assets/icons/key.png" alt="password">
+                <img 
+                class="input-icon"
+                src="../assets/icons/key.png">
 
             </div>
 
 
 
-            <button class="btn-login">
-                Ingresar
-            </button>
+            <button 
+                class="btn-login"
+                onclick="login()">
 
+                Ingresar
+
+            </button>
 
         </div>
 
 
     </div>
 
+    <script src="../assets/js/login.js"></script>
 
 </body>
 </html>
