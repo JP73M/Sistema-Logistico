@@ -134,10 +134,11 @@ nav a img,
 
     color:#27348b;
 
-
     font-size:28px;
 
     font-weight:700;
+
+    letter-spacing:0;
 
 
 }
@@ -254,5 +255,139 @@ nav a img,
 
     width:18px;
 
+
+}
+
+.cards{
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:20px;
+
+    margin-top: 25px;
+
+}
+
+.card{
+
+    background:white;
+
+
+    height:110px;
+
+
+    border-radius:12px;
+
+
+    padding:20px;
+
+
+    display:flex;
+
+
+    align-items:center;
+
+
+    gap:18px;
+
+
+    box-shadow:0 5px 20px rgba(0,0,0,.05);
+
+    transition:.3s;
+
+}
+
+.card:hover{
+
+    transform:translateY(-5px);
+
+}
+
+.card-icon{
+
+    width:50px;
+
+    height:50px;
+
+
+    min-width:50px;
+
+
+    border-radius:10px;
+
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+.card-icon img{
+
+    width:24px;
+
+    height:24px;
+
+    object-fit:contain;
+
+}
+
+.card p{
+
+    font-size:14px;
+
+    font-weight:600;
+
+    color:#111827;
+
+}
+
+
+.card h2{
+
+    font-size:26px;
+
+    margin:8px 0;
+
+}
+
+
+.card span,
+.card small{
+
+    font-size:13px;
+
+    color:#008000;
+
+}
+
+.blue{
+
+background:#0057ff;
+
+}
+
+
+.green{
+
+background:#13a538;
+
+}
+
+
+.purple{
+
+background:#673de6;
+
+}
+
+
+.yellow{
+
+background:#facc15;
 
 }
