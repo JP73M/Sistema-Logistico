@@ -7,6 +7,10 @@
 
 body{
     font-family:'Milliard', sans-serif;
+
+    min-height:100vh;
+
+    background:#f4f6fb;
 }
 
 
@@ -15,17 +19,30 @@ body{
     height:100vh;
     display:flex;
     background:#f4f6fb;
+    min-height: 100vh;
 }
 
 .sidebar{
-    width:220px;
+
+    width:260px;
+
     height:100vh;
+
     background:#27348b;
-    padding:20px 14px;
+
+    padding:25px 18px;
+
     display:flex;
+
     flex-direction:column;
-    box-shadow:
-    inset -10px 0 20px rgba(0,0,0,.10);
+
+
+    position:fixed;
+
+    left:0;
+
+    top:0;
+
 }
 
 
@@ -109,9 +126,11 @@ nav a img,
 
 .content{
 
+    margin-left:260px;
+
     flex:1;
 
-    padding:25px 35px;
+    padding:30px 40px;
 
 }
 
@@ -529,6 +548,14 @@ background:#facc15;
 
 }
 
+.input-scan span{
+
+    color:#27348b;
+
+    font-weight:700;
+
+}
+
 
 textarea{
 
@@ -622,23 +649,614 @@ textarea:focus{
 
 .btn-clear{
 
-
     flex:1;
 
+    height:45px;
 
     background:white;
 
-
     border:1px solid #d1d5db;
 
-
     border-radius:8px;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+}
+
+.weight-card{
+
+    background:white;
+
+    border-radius:16px;
+
+    padding:25px;
+
+    box-shadow:0 8px 25px rgba(0,0,0,.06);
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:space-between;
+
+}
+
+
+
+.weight-title{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    margin-bottom:30px;
+
+}
+
+
+.weight-title img{
+
+    width:26px;
+
+}
+
+
+
+.weight-title h3{
+
+    color:#27348b;
+
+    font-size:18px;
+
+    font-weight:700;
+
+}
+
+
+
+.weight-box{
+
+    height:150px;
+
+    margin-top:10px;
+
+
+    background:#f8fafc;
+
+
+    border:1px solid #e5e7eb;
+
+
+    border-radius:14px;
+
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:10px;
+
+
+}
+
+
+.weight-box h1{
+
+    font-size:80px;
+
+    font-weight:800;
+
+    color:#111827;
+
+}
+
+
+.weight-box span{
+
+    font-size:26px;
+
+    font-weight:800;
+
+    color:#111827;
+
+}
+
+
+.weight-card p{
+
+    margin-top:20px;
+
+    text-align:center;
+
+    color:#6b7280;
+
+    font-size:14px;
+
+}  
+
+
+.status{
+
+    margin-top:20px;
+
+
+    width:180px;
+
+    align-self:center;
+
+
+    padding:8px 15px;
+
+
+    text-align:center;
+
+
+    border-radius:30px;
+
+
+    background:#dcfce7;
+
+
+    color:#15803d;
+
+
+    font-size:14px;
+
+
+    font-weight:700;
+
+}
+
+.info-card{
+
+    background:white;
+
+    border-radius:14px;
+
+    padding:30px;
+
+    box-shadow:0 5px 20px rgba(0,0,0,.05);
+
+}
+
+.info-title{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    margin-bottom:10px;
+
+}
+
+.info-title img{
+
+    width:28px;
+
+    height:28px;
+
+}
+
+
+.info-data{
+
+    margin-top:35px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:28px;
+
+}
+
+.found{
+
+    color:#15803d;
+
+    font-weight:700;
+
+    margin-bottom:30px;
+
+}
+
+
+.info-data div{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+
+    padding-bottom:12px;
+
+
+    border-bottom:1px solid #eef0f5;
+
+}
+
+
+.info-data div:last-child{
+
+    border-bottom:none;
+
+}
+
+
+.info-data span{
+
+    background:#eef4ff;
+
+    padding:5px 12px;
+
+    border-radius:20px;
+
+    color:#27348b;
+
+    font-weight:700;
+
+    font-size:14px;
+
+}
+
+.upload-section{
+
+    display:grid;
+
+    grid-template-columns:repeat(2,1fr);
+
+    gap:20px;
+
+    margin-top:25px;
+
+}
+
+
+.upload-card{
+
+    background:white;
+
+    border-radius:14px;
+
+    padding:20px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:25px;
+
+    box-shadow:0 5px 20px rgba(0,0,0,.05);
+
+}
+
+
+.upload-card img{
+
+    width:40px;
+
+}
+
+
+.upload-card h3{
+
+    color:#27348b;
+
+}
+
+
+.upload-card p{
+
+    color:#6b7280;
+
+    margin-top:5px;
+
+}
+
+
+.upload-card label{
+
+    margin-left:auto;   /* 🔥 ESTO LO EMPUJA A LA DERECHA */
+
+
+    background:#27348b;
+
+    color:white;
+
+
+    padding:12px 25px;
+
+
+    border-radius:10px;
+
+
+    cursor:pointer;
 
 
     font-weight:700;
 
 
+    transition:.3s;
+
+}
+
+.upload-card label:hover{
+
+    background:#1e286d;
+
+}
+
+.file-loaded{
+
+    color:#15803d;
+
+    font-weight:600;
+
+}
+
+.table-card{
+
+    background:white;
+
+    margin-top:25px;
+
+    padding:25px;
+
+    border-radius:14px;
+
+    box-shadow:0 5px 20px rgba(0,0,0,.05);
+
+}
+
+
+
+.table-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:25px;
+
+}
+
+
+
+.table-title{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+}
+
+
+
+.table-title img{
+
+    width:25px;
+
+}
+
+
+
+.table-title h3{
+
+    color:#27348b;
+
+}
+
+
+
+.table-actions{
+
+    display:flex;
+
+    gap:15px;
+
+}
+
+
+
+
+.table-actions button{
+
+    padding:12px 25px;
+
+    border-radius:8px;
+
+    border:none;
+
     cursor:pointer;
 
+    font-weight:700;
+
+}
+
+
+
+.btn-save{
+
+    background:#16a34a;
+
+    color:white;
+
+}
+
+
+
+.btn-export{
+
+    background:#27348b;
+
+    color:white;
+
+}
+
+
+
+table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+}
+
+
+
+thead{
+
+    background:#111827;
+
+    color:white;
+
+}
+
+
+
+th{
+
+    padding:14px;
+
+    text-align:left;
+
+}
+
+
+
+td{
+
+    padding:14px;
+
+}
+
+
+
+tbody tr{
+
+    border-bottom:1px solid #e5e7eb;
+
+}
+
+
+
+.delete-btn{
+
+    background:#fee2e2;
+
+    color:#dc2626;
+
+    border:none;
+
+    padding:8px 12px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+}
+
+
+
+.table-count{
+
+    margin-top:20px;
+
+    color:#6b7280;
+
+}
+
+.delete-btn{
+
+    width:35px;
+
+    height:35px;
+
+    border:none;
+
+    border-radius:8px;
+
+    background:#fee2e2;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+
+.delete-btn img{
+
+    width:18px;
+
+    height:18px;
+
+    object-fit:contain;
+
+}
+
+
+.delete-btn:hover{
+
+    background:#fecaca;
+
+    transform:scale(1.05);
+
+}
+
+tbody tr{
+
+    transition:.2s;
+
+}
+
+
+tbody tr:hover{
+
+    background:#f8fafc;
+
+    cursor:pointer;
+
+}
+
+.empty-row td{
+
+    text-align:center;
+
+    padding:35px;
+
+    color:#6b7280;
+
+    font-weight:600;
+
+}
+
+
+.empty-row:hover{
+
+    background:white;
+
+    cursor:default;
 
 }

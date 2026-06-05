@@ -185,6 +185,69 @@
 
             </section>
 
+            <section class="upload-section">
+
+
+                <div class="upload-card">
+
+
+                    <img src="../assets/img/icons/exceal.png">
+
+
+                    <div>
+
+                        <h3>Manifiesto</h3>
+
+                        <p>No hay archivo cargado</p>
+
+
+                    </div>
+
+
+                    <label>
+
+                        Subir Excel
+
+                        <input type="file" hidden>
+
+                    </label>
+
+
+                </div>
+
+
+
+                <div class="upload-card">
+
+
+                    <img src="../assets/img/icons/exceal.png">
+
+
+                    <div>
+
+                        <h3>Casilleros</h3>
+
+                        <p>No hay archivo cargado</p>
+
+
+                    </div>
+
+
+                    <label>
+
+                        Subir Excel
+
+                        <input type="file" hidden>
+
+                    </label>
+
+
+                </div>
+
+
+
+            </section>
+
             <section class="operation">
 
 
@@ -214,7 +277,8 @@
 
                             <input 
                             type="text"
-                            placeholder="Escanee o ingrese número de guía...">
+                            id="inputGuia"
+                            placeholder="Escanee o ingrese número de guía...">  
 
 
                             <img src="../assets/img/icons/barcode.png">
@@ -224,6 +288,33 @@
 
 
                     </div>
+
+                    <div class="form-group">
+
+
+                        <label>
+                            Peso (KG)
+                        </label>
+
+
+                        <div class="input-scan">
+
+
+                            <input 
+                            type="number"
+                            id="inputPeso"
+                            placeholder="Ingrese peso...">
+
+
+                            <span>KG</span>
+
+
+                        </div>
+
+
+                    </div>
+
+                    
 
 
 
@@ -238,6 +329,7 @@
                         <div class="coment-scan">
 
                             <textarea
+                            id="comentarioInput"
                             placeholder="Ingrese un comentario..."></textarea>
 
 
@@ -252,12 +344,14 @@
 
                     <div class="scanner-buttons">
 
-
-                        <button class="btn-add">
+                        <button 
+                        id="btnAgregar"
+                        class="btn-add">
 
                             + AGREGAR A LISTA
 
                         </button>
+                       
 
 
                         <button class="btn-clear">
@@ -273,13 +367,193 @@
 
                 </div>
 
+                <div class="weight-card">
+
+
+                    <div class="weight-title">
+
+                        <img src="../assets/img/icons/Weight-blue.png" alt="">
+
+                        <h3>Peso actual</h3>
+
+                    </div>
+
+
+                    <div class="weight-box">
+
+                        <h1 id="pesoActual">0</h1>
+
+                        <span>KG</span>
+
+                    </div>
+
+
+                    <p>Peso aproximado al entero</p>
+
+
+                    <div class="status">
+
+                        ● Estable
+
+                    </div>
+
+
+                </div>
+
+                <div class="info-card">
+
+
+                    <div class="info-title">
+
+                        <img src="../assets/img/icons/info.png">
+
+                        <h3>Información encontrada</h3>
+
+                    </div>
+
+
+                    <div class="found">
+
+                        ✓ Guía encontrada
+
+                    </div>
+
+
+                    <div class="info-data">
+
+
+                        <div>
+                            <strong>Casillero:</strong>
+                            <span id="infoCasillero">---</span>
+                        </div>
+
+
+                        <div>
+                            <strong>Nombre:</strong>
+                            <span id="infoNombre">---</span>
+                        </div>
+
+
+                        <div>
+                            <strong>Servicio:</strong>
+                            <span id="infoServicio">---</span>
+                        </div>
+
+
+                        <div>
+                            <strong>Manifiesto:</strong>
+                            <span id="infoManifiesto">---</span>
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </section>
+
+            <section class="table-card">
+
+
+                <div class="table-header">
+
+
+                    <div class="table-title">
+
+                        <img src="../assets/img/icons/Docs.png" alt="">
+
+                        <h3>Guías en lista</h3>
+
+                    </div>
+
+
+
+                    <div class="table-actions">
+
+
+                        <button class="btn-save">
+                            Guardar lote
+                        </button>
+
+
+                        <button class="btn-export">
+                            Exportar Excel
+                        </button>
+
+
+                    </div>
+
+
+                </div>
+
+
+
+
+                <table>
+
+
+                    <thead>
+
+                        <tr>
+
+                            <th>#</th>
+                            <th>Guía</th>
+                            <th>Casillero</th>
+                            <th>Nombre</th>
+                            <th>Peso</th>
+                            <th>Servicio</th>
+                            <th>Comentario</th>
+                            <th>Acción</th>
+
+                        </tr>
+
+                    </thead>
+
+
+
+                    <tbody>
+
+
+
+
+
+                        <tbody id="guideBody">
+
+                            <tr class="empty-row">
+
+                                <td colspan="8">
+
+                                    No hay guías agregadas
+
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+
+                    </tbody>
+
+
+                </table>
+
+
+
+                <p id="counter">
+
+                    Mostrando 0 registros
+
+                </p>
+
+
 
             </section>
 
 
         </main>
     </div>
-
 
     <script src="../assets/js/dashboard.js"></script>
 </body>
