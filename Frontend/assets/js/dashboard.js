@@ -27,6 +27,10 @@ const baseGuias = [
 
 ];
 
+const totalGuias = document.querySelector("#totalGuias");
+
+const pesoTotal = document.querySelector("#pesoTotal");
+
 
 
 function actualizarTabla(){
@@ -57,9 +61,7 @@ function actualizarTabla(){
 
 actualizarTabla();
 
-// ===========================
-// PESO EN TIEMPO REAL
-// ===========================
+actualizarCards();
 
 const inputPeso = document.querySelector("#inputPeso");
 
@@ -138,10 +140,6 @@ inputGuia.addEventListener("input", ()=>{
 
 });
 
-// ===========================
-// AGREGAR GUIA A TABLA
-// ===========================
-
 
 const btnAgregar = document.querySelector("#btnAgregar");
 
@@ -156,6 +154,46 @@ btnAgregar.addEventListener("click",()=>{
     let peso = inputPeso.value;
 
     let comentario = comentarioInput.value;
+
+        let existe = false;
+
+
+    tbody.querySelectorAll("tr:not(.empty-row)").forEach(fila=>{
+
+
+        let guiaTabla = fila.children[1].textContent;
+
+
+        if(guiaTabla === guia){
+
+
+            existe = true;
+
+
+        }
+
+
+    });
+
+
+
+    if(existe){
+
+
+        alert("Esta guía ya fue agregada al lote");
+
+
+        inputGuia.value="";
+
+        inputGuia.focus();
+
+
+        return;
+
+
+    }
+
+    inputGuia.focus();
 
 
 
@@ -202,7 +240,7 @@ btnAgregar.addEventListener("click",()=>{
 
         <td>${datos.nombre}</td>
 
-        <td>${peso} KG</td>
+        <td>${peso} LB</td>
 
         <td>${datos.servicio}</td>
 
@@ -222,14 +260,15 @@ btnAgregar.addEventListener("click",()=>{
 
 
 
-    tbody.appendChild(fila);
+        tbody.appendChild(fila);
 
 
+        limpiarCampos();
 
-    limpiarCampos();
 
+        actualizarTabla();
 
-    actualizarTabla();
+        actualizarCards();
 
 
 });
@@ -276,8 +315,44 @@ tbody.addEventListener("click", (e)=>{
 
         actualizarTabla();
 
+        actualizarCards();
+
 
     }
 
 
 });
+
+function actualizarCards(){
+
+
+    let filas = tbody.querySelectorAll("tr:not(.empty-row)");
+
+
+    let cantidad = filas.length;
+
+
+    let peso = 0;
+
+
+
+    filas.forEach(fila=>{
+
+
+        let valorPeso = fila.children[4].textContent;
+
+
+        peso += parseFloat(valorPeso);
+
+
+    });
+
+
+
+    totalGuias.textContent = cantidad;
+
+
+    pesoTotal.textContent = peso;
+
+
+}

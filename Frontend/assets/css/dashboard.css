@@ -368,20 +368,31 @@ nav a img,
 
 .card h2{
 
-    font-size:26px;
+    display:flex;
 
-    margin:8px 0;
+    align-items:flex-end;
+
+    gap:8px;
+
+    font-size:35px;
+
+    font-weight:800;
+
+    color:#111827;
 
 }
-
 
 .card span,
 .card small{
 
-    font-size:13px;
+    font-size:20px;
 
     color:#008000;
 
+    margin-bottom:5px;
+
+    font-weight:700;
+    
 }
 
 .blue{
@@ -464,7 +475,7 @@ background:#facc15;
 .scanner-title h3{
 
 
-    color:#0057ff;
+    color:#27348b;
 
 }
 
