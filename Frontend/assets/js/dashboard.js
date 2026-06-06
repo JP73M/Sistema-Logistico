@@ -31,21 +31,6 @@ const totalGuias = document.querySelector("#totalGuias");
 
 const pesoTotal = document.querySelector("#pesoTotal");
 
-const fechaActual = document.querySelector("#fechaActual");
-
-
-let hoy = new Date();
-
-
-fechaActual.textContent = hoy.toLocaleDateString(
-    "es-CO",
-    {
-        day:"2-digit",
-        month:"2-digit",
-        year:"numeric"
-    }
-);
-
 
 
 function actualizarTabla(){
@@ -161,40 +146,7 @@ const btnAgregar = document.querySelector("#btnAgregar");
 const comentarioInput = document.querySelector("#comentarioInput");
 
 
-
-// BOTÓN AGREGAR
-
 btnAgregar.addEventListener("click",()=>{
-
-
-    agregarGuia();
-
-
-});
-
-
-
-// ENTER DEL SCANNER
-
-inputGuia.addEventListener("keydown",(e)=>{
-
-
-    if(e.key === "Enter"){
-
-
-        agregarGuia();
-
-
-    }
-
-
-});
-
-
-
-// FUNCIÓN PRINCIPAL PARA AGREGAR GUÍA
-
-function agregarGuia(){
 
 
     let guia = inputGuia.value;
@@ -203,9 +155,47 @@ function agregarGuia(){
 
     let comentario = comentarioInput.value;
 
+        let existe = false;
 
 
-    // Buscar guía en nuestra base
+    tbody.querySelectorAll("tr:not(.empty-row)").forEach(fila=>{
+
+
+        let guiaTabla = fila.children[1].textContent;
+
+
+        if(guiaTabla === guia){
+
+
+            existe = true;
+
+
+        }
+
+
+    });
+
+
+
+    if(existe){
+
+
+        alert("Esta guía ya fue agregada al lote");
+
+
+        inputGuia.value="";
+
+        inputGuia.focus();
+
+
+        return;
+
+
+    }
+
+    inputGuia.focus();
+
+
 
     let datos = baseGuias.find(
 
@@ -217,88 +207,24 @@ function agregarGuia(){
 
     if(!datos){
 
-
         alert("Guía no encontrada");
 
-
-        inputGuia.value="";
-
-
-        inputGuia.focus();
-
-
         return;
-
 
     }
 
 
-
-    // Validar peso
 
     if(peso === ""){
 
-
         alert("Ingrese un peso");
 
-
-        inputPeso.focus();
-
-
         return;
-
 
     }
 
 
 
-    // Validar repetida
-
-    let repetida = false;
-
-
-
-    tbody.querySelectorAll("tr:not(.empty-row)").forEach(fila=>{
-
-
-        let guiaTabla = fila.children[1].textContent;
-
-
-
-        if(guiaTabla === guia){
-
-
-            repetida = true;
-
-
-        }
-
-
-    });
-
-
-
-    if(repetida){
-
-
-        alert("Esta guía ya fue agregada al lote");
-
-
-        inputGuia.value="";
-
-
-        inputGuia.focus();
-
-
-        return;
-
-
-    }
-
-
-
-
-    // Crear fila
 
     const fila = document.createElement("tr");
 
@@ -324,7 +250,7 @@ function agregarGuia(){
 
             <button class="delete-btn">
 
-                <img src="../assets/img/icons/transh.png" alt="Eliminar">
+                 <img src="../assets/img/icons/transh.png" alt="Eliminar">
 
             </button>
 
@@ -334,20 +260,18 @@ function agregarGuia(){
 
 
 
-    tbody.appendChild(fila);
+        tbody.appendChild(fila);
 
 
-
-    limpiarCampos();
-
-
-    actualizarTabla();
+        limpiarCampos();
 
 
-    actualizarCards();
+        actualizarTabla();
+
+        actualizarCards();
 
 
-}
+});
 
 function limpiarCampos(){
 
@@ -432,6 +356,3 @@ function actualizarCards(){
 
 
 }
-
-fechaActual.textContent =
-"Fecha: " + hoy.toLocaleDateString("es-CO");
