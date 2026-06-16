@@ -7,25 +7,9 @@ const tbody = document.querySelector("#guideBody");
 
 const counter = document.querySelector("#counter");
 
-const baseGuias = [
+let baseGuias = [];
 
-    {
-        guia:"7003001965",
-        casillero:"C205",
-        nombre:"Carlos Pérez",
-        servicio:"Express",
-        manifiesto:"M001"
-    },
-
-    {
-        guia:"7003001966",
-        casillero:"C300",
-        nombre:"Juan Melo",
-        servicio:"Normal",
-        manifiesto:"M001"
-    }
-
-];
+let baseCasilleros = [];
 
 const totalGuias = document.querySelector("#totalGuias");
 
@@ -114,9 +98,28 @@ inputGuia.addEventListener("input", ()=>{
     if(resultado){
 
 
+        let cliente = baseCasilleros.find(
+
+            item => item.casillero === resultado.casillero
+
+        );
+
+
+
         infoCasillero.textContent = resultado.casillero;
 
-        infoNombre.textContent = resultado.nombre;
+
+        if(cliente){
+
+            infoNombre.textContent = cliente.nombre;
+
+        }else{
+
+            infoNombre.textContent = "No encontrado";
+
+        }
+
+
 
         infoServicio.textContent = resultado.servicio;
 
@@ -226,7 +229,14 @@ btnAgregar.addEventListener("click",()=>{
 
 
 
-    const fila = document.createElement("tr");
+    let cliente = baseCasilleros.find(
+
+        item => item.casillero === datos.casillero
+
+    )   ;
+
+
+    let nombreCliente = cliente ? cliente.nombre : "No encontrado";
 
 
 
@@ -238,7 +248,7 @@ btnAgregar.addEventListener("click",()=>{
 
         <td>${datos.casillero}</td>
 
-        <td>${datos.nombre}</td>
+        <td>${nombreCliente}</td>
 
         <td>${peso} LB</td>
 
@@ -356,3 +366,154 @@ function actualizarCards(){
 
 
 }
+
+const excelManifiesto = document.querySelector("#excelManifiesto");
+
+
+excelManifiesto.addEventListener("change",(e)=>{
+
+
+    const archivo = e.target.files[0];
+
+
+    const reader = new FileReader();
+
+
+
+    reader.onload = function(event){
+
+
+        const data = new Uint8Array(event.target.result);
+
+
+        const workbook = XLSX.read(data,{
+            type:"array"
+        });
+
+
+
+        const hoja = workbook.Sheets[
+            workbook.SheetNames[0]
+        ];
+
+
+
+        const datosExcel = XLSX.utils.sheet_to_json(hoja);
+
+
+        baseGuias = datosExcel.map(item => {
+
+
+            return {
+
+
+                guia:item.Guia,
+
+
+                casillero:item.Casillero,
+
+
+                servicio:item.Servicio,
+
+
+                manifiesto:item.Manifiesto
+
+
+            }
+
+
+        });
+
+
+        console.log(baseGuias);
+        
+
+
+    };
+
+
+
+    reader.readAsArrayBuffer(archivo);
+
+
+
+});
+
+const excelCasilleros = document.querySelector("#excelCasilleros");
+
+
+excelCasilleros.addEventListener("change",(e)=>{
+
+
+    const archivo = e.target.files[0];
+
+
+    const reader = new FileReader();
+
+
+
+    reader.onload = function(event){
+
+
+        const data = new Uint8Array(event.target.result);
+
+
+        const workbook = XLSX.read(data,{
+            type:"array"
+        });
+
+
+
+        const hoja = workbook.Sheets[
+            workbook.SheetNames[0]
+        ];
+
+
+
+        const datosExcel = XLSX.utils.sheet_to_json(hoja);
+
+
+
+        console.log(datosExcel[0]);
+
+
+
+        baseCasilleros = datosExcel.map(item => {
+
+
+            return {
+
+
+                casillero:item["No. Casillero"]
+                .replace("DL-","DILO-"),
+
+
+                nombre:item["Nombre de casillero"],
+
+
+                email:item.Email,
+
+
+                telefono:item.Telefono
+
+
+            }
+
+
+        });
+
+
+
+        console.log(baseCasilleros);
+
+
+
+    };
+
+
+
+    reader.readAsArrayBuffer(archivo);
+
+
+
+});
