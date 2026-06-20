@@ -98,9 +98,11 @@ inputGuia.addEventListener("input", ()=>{
     if(resultado){
 
 
-        let cliente = baseCasilleros.find(
+        let cliente = baseCasilleros.find(item =>
 
-            item => item.casillero === resultado.casillero
+            item.casillero.replace("DILO","DL")
+            ===
+            resultado.casillero.replace("DILO","DL")
 
         );
 
@@ -222,25 +224,30 @@ btnAgregar.addEventListener("click",()=>{
 
         alert("Ingrese un peso");
 
-        return;
+        return; 
 
     }
 
 
 
 
-    let cliente = baseCasilleros.find(
+        let cliente = baseCasilleros.find(item =>
 
-        item => item.casillero === datos.casillero
+            item.casillero.replace("DILO","DL")
+            ===
+            datos.casillero.replace("DILO","DL")
 
-    )   ;
-
-
-    let nombreCliente = cliente ? cliente.nombre : "No encontrado";
-
+        );
 
 
-    fila.innerHTML = `
+        let nombreCliente = cliente ? cliente.nombre : "No encontrado";
+
+
+        
+        const fila = document.createElement("tr");
+
+
+        fila.innerHTML = `
 
         <td></td>
 
@@ -279,9 +286,35 @@ btnAgregar.addEventListener("click",()=>{
         actualizarTabla();
 
         actualizarCards();
+    
+    inputGuia.addEventListener("keydown",(e)=>{
+
+
+        if(e.key === "Enter"){
+
+
+        e.preventDefault();
+
+
+        setTimeout(()=>{
+
+
+            btnAgregar.click();
+
+
+        },100);
+        
+        
+
+
+    }
 
 
 });
+
+
+});
+
 
 function limpiarCampos(){
 
@@ -292,9 +325,9 @@ function limpiarCampos(){
 
     comentarioInput.value="";
 
+    inputPeso.focus();
 
     pesoActual.textContent="0";
-
 
     infoCasillero.textContent="---";
 
@@ -484,8 +517,7 @@ excelCasilleros.addEventListener("change",(e)=>{
             return {
 
 
-                casillero:item["No. Casillero"]
-                .replace("DL-","DILO-"),
+                casillero:item["No. Casillero"],
 
 
                 nombre:item["Nombre de casillero"],
