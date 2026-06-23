@@ -118,8 +118,6 @@
 
                         <h2 id="totalGuias">0</h2>
 
-                        <p>+12% vs ayer</p>
-
                     </div>
 
 
@@ -159,7 +157,11 @@
 
                         <p>Manifiesto activo</p>
 
-                        <h2>#000987</h2>
+                        <input 
+                        type="text"
+                        id="inputManifiesto"
+                        class="input-manifiesto"
+                        placeholder="#000987">
 
                         <small><p id="fechaActual"></p></small>
 
@@ -203,6 +205,7 @@
                         <h3>Manifiesto</h3>
 
                         <p id="nombreArchivoManifiesto">No hay archivo cargado</p>
+                        <div id="listaManifiestos"></div>
 
 
                     </div>
@@ -212,7 +215,7 @@
 
                         Subir Excel
 
-                        <input type="file"  id="excelManifiesto" hidden>
+                        <input type="file"  id="excelManifiesto" multiple hidden>
 
                     </label>
 
@@ -508,6 +511,7 @@
                             <th>Nombre</th>
                             <th>Peso</th>
                             <th>Servicio</th>
+                            <th>Manifiesto</th>
                             <th>Comentario</th>
                             <th>Acción</th>
 
@@ -562,5 +566,6 @@
     <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
 
     <script src="../assets/js/dashboard.js"></script>
+    <div id="toast" class="toast"></div>
 </body>
 </html>

@@ -422,6 +422,22 @@ background:#facc15;
 
 }
 
+.input-manifiesto{
+
+    border:none;
+    outline:none;
+
+    font-size:32px;
+    font-weight:800;
+
+    width:150px;
+
+    color:#0f172a;
+
+    background:transparent;
+
+}
+
 .operation{
 
     display:grid;
@@ -1269,5 +1285,39 @@ tbody tr:hover{
     background:white;
 
     cursor:default;
+
+}
+
+.toast{
+
+    position:fixed;
+
+    top:30px;
+    right:30px;
+
+    background:#111827;
+
+    color:white;
+
+    padding:16px 25px;
+
+    border-radius:12px;
+
+    font-weight:600;
+
+    opacity:0;
+
+    pointer-events:none;
+
+    transition:.3s;
+
+    z-index:9999;
+
+}
+
+
+.toast.show{
+
+    opacity:1;
 
 }

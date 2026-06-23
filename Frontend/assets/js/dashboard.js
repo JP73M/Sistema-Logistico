@@ -15,8 +15,14 @@ const totalGuias = document.querySelector("#totalGuias");
 
 const pesoTotal = document.querySelector("#pesoTotal");
 
+const toast =
+document.querySelector("#toast");
+
 const nombreArchivoManifiesto =
 document.querySelector("#nombreArchivoManifiesto");
+
+const listaManifiestos =
+document.querySelector("#listaManifiestos");
 
 
 const nombreArchivoCasilleros =
@@ -54,6 +60,26 @@ actualizarTabla();
 
 actualizarCards();
 
+function mostrarMensaje(texto){
+
+
+    toast.textContent = texto;
+
+
+    toast.classList.add("show");
+
+
+    setTimeout(()=>{
+
+
+        toast.classList.remove("show");
+
+
+    },2500);
+
+
+}
+
 const inputPeso = document.querySelector("#inputPeso");
 
 const pesoActual = document.querySelector("#pesoActual");
@@ -85,6 +111,8 @@ const infoNombre = document.querySelector("#infoNombre");
 const infoServicio = document.querySelector("#infoServicio");
 
 const infoManifiesto = document.querySelector("#infoManifiesto");
+
+const inputManifiesto = document.querySelector("#inputManifiesto");
 
 
 
@@ -133,7 +161,7 @@ inputGuia.addEventListener("input", ()=>{
 
         infoServicio.textContent = resultado.servicio;
 
-        infoManifiesto.textContent = resultado.manifiesto;
+        infoManifiesto.textContent = inputManifiesto.value;
 
 
     }else{
@@ -170,6 +198,19 @@ btnAgregar.addEventListener("click",()=>{
 
         let existe = false;
 
+    if(inputManifiesto.value === ""){
+
+
+        mostrarMensaje("Ingrese manifiesto activo");
+
+
+        inputManifiesto.focus();
+
+
+        return;
+
+
+    }
 
     tbody.querySelectorAll("tr:not(.empty-row)").forEach(fila=>{
 
@@ -193,7 +234,7 @@ btnAgregar.addEventListener("click",()=>{
     if(existe){
 
 
-        alert("Esta guía ya fue agregada al lote");
+        mostrarMensaje("Esta guía ya fue agregada al lote");
 
 
         inputGuia.value="";
@@ -228,7 +269,7 @@ btnAgregar.addEventListener("click",()=>{
 
     if(peso === ""){
 
-        alert("Ingrese un peso");
+        mostrarMensaje("Ingrese un peso");
 
         return; 
 
@@ -267,6 +308,8 @@ btnAgregar.addEventListener("click",()=>{
 
         <td>${datos.servicio}</td>
 
+        <td>${inputManifiesto.value}</td>
+
         <td>${comentario}</td>
 
         <td>
@@ -293,42 +336,9 @@ btnAgregar.addEventListener("click",()=>{
 
         actualizarCards();
 
-    let procesandoScan = false;
-    
-    inputGuia.addEventListener("keydown",(e)=>{
-
-
-        if (e.key === "Enter"){
-
-            e.preventDefault();
-
-            if(procesandoScan){
-                return;
-        }
-
-        procesandoScan = true
-
-        setTimeout(()=>{
-
-            if(inputGuia.value.trim() !== ""){
-
-                    btnAgregar.click();
-            }
-        },200);
-
-
-        
-        
-        
-
-
-    }
-
 
 });
 
-
-});
 
 
 function limpiarCampos(){
@@ -343,15 +353,6 @@ function limpiarCampos(){
     inputPeso.focus();
 
     pesoActual.textContent="0";
-
-    infoCasillero.textContent="---";
-
-    infoNombre.textContent="---";
-
-    infoServicio.textContent="---";
-
-    infoManifiesto.textContent="---";
-
 
 }
 
@@ -421,71 +422,39 @@ const excelManifiesto = document.querySelector("#excelManifiesto");
 excelManifiesto.addEventListener("change",(e)=>{
 
 
-    const archivo = e.target.files[0];
+    const archivos = Array.from(e.target.files);
+
+
+    listaManifiestos.innerHTML = "";
+
 
     nombreArchivoManifiesto.textContent =
-    archivo.name;
-
-
-    const reader = new FileReader();
+    `${archivos.length} archivos cargados`;
 
 
 
-    reader.onload = function(event){
+    archivos.forEach((archivo,index)=>{
 
 
-        const data = new Uint8Array(event.target.result);
+        const div = document.createElement("div");
 
 
-        const workbook = XLSX.read(data,{
-            type:"array"
-        });
+        div.innerHTML = `
+
+            <span>${archivo.name}</span>
+
+            <input 
+            class="numeroManifiesto"
+            data-index="${index}"
+            placeholder="Número manifiesto">
+
+        `;
 
 
-
-        const hoja = workbook.Sheets[
-            workbook.SheetNames[0]
-        ];
+        listaManifiestos.appendChild(div);
 
 
-
-        const datosExcel = XLSX.utils.sheet_to_json(hoja);
-
-
-        baseGuias = datosExcel.map(item => {
-
-
-            return {
-
-
-                guia:item.Guia,
-
-
-                casillero:item.Casillero,
-
-
-                servicio:item.Servicio,
-
-
-                manifiesto:item.Manifiesto
-
-
-            }
-
-
-        });
-
-
-        console.log(baseGuias);
-        
-
-
-    };
-
-
-
-    reader.readAsArrayBuffer(archivo);
-
+    });
 
 
 });
@@ -568,6 +537,35 @@ excelCasilleros.addEventListener("change",(e)=>{
 
     reader.readAsArrayBuffer(archivo);
 
+    let procesandoScan = false;
+
+    inputGuia.addEventListener("keydown",(e)=>{
+
+        if(e.key === "Enter"){
+
+            e.preventDefault();
+
+            if(procesandoScan){
+                return;
+            }
+
+            procesandoScan = true
+
+            setTimeout(()=>{
+
+                if(inputGuia.value.trim() !== ""){
+                    
+                    btnAgregar.click();
+
+                }
+
+                procesandoScan = false;
+            }, 200);
+        }
+    }
+    
+    
+    );
 
 
 });
