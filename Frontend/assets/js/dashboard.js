@@ -15,6 +15,13 @@ const totalGuias = document.querySelector("#totalGuias");
 
 const pesoTotal = document.querySelector("#pesoTotal");
 
+const nombreArchivoManifiesto =
+document.querySelector("#nombreArchivoManifiesto");
+
+
+const nombreArchivoCasilleros =
+document.querySelector("#nombreArchivoCasilleros");
+
 
 
 function actualizarTabla(){
@@ -78,6 +85,7 @@ const infoNombre = document.querySelector("#infoNombre");
 const infoServicio = document.querySelector("#infoServicio");
 
 const infoManifiesto = document.querySelector("#infoManifiesto");
+
 
 
 
@@ -212,8 +220,6 @@ btnAgregar.addEventListener("click",()=>{
 
     if(!datos){
 
-        alert("Guía no encontrada");
-
         return;
 
     }
@@ -286,23 +292,32 @@ btnAgregar.addEventListener("click",()=>{
         actualizarTabla();
 
         actualizarCards();
+
+    let procesandoScan = false;
     
     inputGuia.addEventListener("keydown",(e)=>{
 
 
-        if(e.key === "Enter"){
+        if (e.key === "Enter"){
 
+            e.preventDefault();
 
-        e.preventDefault();
+            if(procesandoScan){
+                return;
+        }
 
+        procesandoScan = true
 
         setTimeout(()=>{
 
+            if(inputGuia.value.trim() !== ""){
 
-            btnAgregar.click();
+                    btnAgregar.click();
+            }
+        },200);
 
 
-        },100);
+        
         
         
 
@@ -408,6 +423,9 @@ excelManifiesto.addEventListener("change",(e)=>{
 
     const archivo = e.target.files[0];
 
+    nombreArchivoManifiesto.textContent =
+    archivo.name;
+
 
     const reader = new FileReader();
 
@@ -479,6 +497,10 @@ excelCasilleros.addEventListener("change",(e)=>{
 
 
     const archivo = e.target.files[0];
+
+    nombreArchivoCasilleros.textContent =
+    archivo.name;
+
 
 
     const reader = new FileReader();
