@@ -249,8 +249,8 @@ inputGuia.addEventListener("input", ()=>{
 
 const btnAgregar = document.querySelector("#btnAgregar");
 
-const btnExportar =
-document.querySelector("#btnExportar");
+const btnCerrarLote =
+document.querySelector("#btnCerrarLote");
 
 const comentarioInput = document.querySelector("#comentarioInput");
 
@@ -740,32 +740,20 @@ excelCasilleros.addEventListener("change",(e)=>{
 
 });
 
-btnExportar.addEventListener("click",()=>{
+function obtenerDatosLote(){
 
 
     let filas =
     tbody.querySelectorAll("tr:not(.empty-row)");
 
 
-    if(filas.length === 0){
-
-
-        mostrarMensaje("No hay guías para exportar");
-
-        return;
-
-    }
-
-
-
-    let datosExportar = [];
-
+    let guias = [];
 
 
     filas.forEach(fila=>{
 
 
-        datosExportar.push({
+        guias.push({
 
 
             Guia:
@@ -793,11 +781,7 @@ btnExportar.addEventListener("click",()=>{
 
 
             Comentario:
-            fila.children[7].textContent,
-
-
-            Fecha:
-            new Date().toLocaleDateString()
+            fila.children[7].textContent
 
 
         });
@@ -806,10 +790,16 @@ btnExportar.addEventListener("click",()=>{
     });
 
 
+    return guias;
+
+
+}
+
+function exportarExcel(guias){
+
 
     const hoja =
-    XLSX.utils.json_to_sheet(datosExportar);
-
+    XLSX.utils.json_to_sheet(guias);
 
 
     const libro =
@@ -820,42 +810,129 @@ btnExportar.addEventListener("click",()=>{
     XLSX.utils.book_append_sheet(
         libro,
         hoja,
-        "LogiScan"
+        "DiloScan"
     );
 
-    let fecha = new Date()
+
+    let fecha =
+    new Date()
     .toLocaleDateString("es-CO")
     .replaceAll("/","-");
 
 
-    let manifiestos = [];
+    let manifiestos = [
+        ...new Set(
+            guias.map(g=>g.Manifiesto)
+        )
+    ];
 
 
-    document
-    .querySelectorAll(".numeroManifiesto")
-    .forEach(input => {
-
-
-        if(input.value.trim() !== ""){
-
-
-            manifiestos.push(
-                input.value.trim()
-            );
-
-
-        }
-
-
-    });
-
-
-    let nombreArchivo = 
+    let nombreArchivo =
     `DiloScan_${fecha}_${manifiestos.join("-")}.xlsx`;
+
+
 
     XLSX.writeFile(
         libro,
         nombreArchivo
+    );
+
+
+}
+
+btnCerrarLote.addEventListener("click",()=>{
+
+
+    let guias =
+    obtenerDatosLote();
+
+
+
+    if(guias.length === 0){
+
+
+        mostrarMensaje(
+            "No hay guías para cerrar"
+        );
+
+
+        return;
+
+
+    }
+
+
+
+    let lote = {
+
+
+        fecha:
+        new Date().toLocaleString(),
+
+
+        cantidad:
+        guias.length,
+
+
+        peso:
+        pesoTotal.textContent,
+
+
+        guias:
+        guias
+
+
+    };
+
+    let lotesGuardados =
+    JSON.parse(
+        localStorage.getItem("lotes")
+    ) || [];
+
+
+    lotesGuardados.push(lote);
+
+
+    localStorage.setItem(
+
+        "lotes",
+
+        JSON.stringify(lotesGuardados)
+
+    );
+
+
+
+    exportarExcel(guias);
+
+    let nuevo =
+    confirm(
+        "Lote cerrado correctamente\n\n¿Desea iniciar un nuevo lote?"
+    );
+
+
+    if(nuevo){
+
+
+        tbody.querySelectorAll("tr:not(.empty-row)")
+        .forEach(fila=>{
+
+            fila.remove();
+
+        });
+
+
+        actualizarTabla();
+
+        actualizarCards();
+
+
+}
+
+
+
+    mostrarMensaje(
+        "Lote cerrado correctamente"
     );
 
 
