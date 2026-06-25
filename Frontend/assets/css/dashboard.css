@@ -1321,3 +1321,103 @@ tbody tr:hover{
     opacity:1;
 
 }
+
+#listaManifiestos{
+
+    margin-top:12px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+
+}
+
+
+
+.item-manifiesto{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+
+    background:#f8fafc;
+
+
+    padding:8px 12px;
+
+
+    border-radius:10px;
+
+
+    border:1px solid #e5e7eb;
+
+}
+
+
+
+.archivo-info{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:3px;
+
+}
+
+.archivo-info span{
+
+    font-size:14px;
+
+    font-weight:700;
+
+}
+
+
+
+.archivo-info img{
+
+
+    width:24px;
+
+
+}
+
+
+
+.numeroManifiesto{
+
+
+    width:90px;
+
+
+    height:35px;
+
+
+    border-radius:9px;
+
+
+    text-align:center;
+
+
+    font-weight:700;
+
+}
+
+
+
+.numeroManifiesto:focus{
+
+
+    outline:none;
+
+
+    border-color:#27348b;
+
+
+}

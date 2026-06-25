@@ -13,6 +13,9 @@ let baseCasilleros = [];
 
 const totalGuias = document.querySelector("#totalGuias");
 
+const totalManifiestos =
+document.querySelector("#totalManifiestos");
+
 const pesoTotal = document.querySelector("#pesoTotal");
 
 const toast =
@@ -76,6 +79,67 @@ function mostrarMensaje(texto){
 
 
     },2500);
+
+
+}
+
+function obtenerManifiesto(index){
+
+
+    const input = document.querySelector(
+        `.numeroManifiesto[data-index="${index}"]`
+    );
+
+
+    if(input){
+
+        return input.value;
+
+    }
+
+
+    return "---";
+
+
+}
+
+function validarManifiestos(){
+
+
+    const manifiestos =
+    document.querySelectorAll(".numeroManifiesto");
+
+
+    let completos = true;
+
+
+    manifiestos.forEach(input => {
+
+
+        if(input.value.trim() === ""){
+
+
+            completos = false;
+
+
+            input.style.border =
+            "2px solid red";
+
+
+        }else{
+
+
+            input.style.border =
+            "1px solid #d1d5db";
+
+
+        }
+
+
+    });
+
+
+    return completos;
 
 
 }
@@ -161,7 +225,8 @@ inputGuia.addEventListener("input", ()=>{
 
         infoServicio.textContent = resultado.servicio;
 
-        infoManifiesto.textContent = inputManifiesto.value;
+        infoManifiesto.textContent =
+        obtenerManifiesto(resultado.archivoIndex);
 
 
     }else{
@@ -184,6 +249,9 @@ inputGuia.addEventListener("input", ()=>{
 
 const btnAgregar = document.querySelector("#btnAgregar");
 
+const btnExportar =
+document.querySelector("#btnExportar");
+
 const comentarioInput = document.querySelector("#comentarioInput");
 
 
@@ -197,20 +265,17 @@ btnAgregar.addEventListener("click",()=>{
     let comentario = comentarioInput.value;
 
         let existe = false;
-
-    if(inputManifiesto.value === ""){
-
-
-        mostrarMensaje("Ingrese manifiesto activo");
+ 
+    if(!validarManifiestos()){
 
 
-        inputManifiesto.focus();
+    alert("Complete todos los manifiestos");
 
 
-        return;
+    return;
 
 
-    }
+}
 
     tbody.querySelectorAll("tr:not(.empty-row)").forEach(fila=>{
 
@@ -249,7 +314,19 @@ btnAgregar.addEventListener("click",()=>{
 
     inputGuia.focus();
 
+    if(!validarManifiestos()){
 
+
+    alert("Complete todos los manifiestos");
+
+
+    inputGuia.focus();
+
+
+    return;
+
+
+}
 
     let datos = baseGuias.find(
 
@@ -289,6 +366,9 @@ btnAgregar.addEventListener("click",()=>{
 
         let nombreCliente = cliente ? cliente.nombre : "No encontrado";
 
+        let numeroManifiesto =
+        obtenerManifiesto(datos.archivoIndex);
+
 
         
         const fila = document.createElement("tr");
@@ -308,7 +388,7 @@ btnAgregar.addEventListener("click",()=>{
 
         <td>${datos.servicio}</td>
 
-        <td>${inputManifiesto.value}</td>
+        <td>${numeroManifiesto}</td>
 
         <td>${comentario}</td>
 
@@ -424,6 +504,12 @@ excelManifiesto.addEventListener("change",(e)=>{
 
     const archivos = Array.from(e.target.files);
 
+    totalManifiestos.textContent =
+    archivos.length;
+
+
+    baseGuias = [];
+
 
     listaManifiestos.innerHTML = "";
 
@@ -436,22 +522,106 @@ excelManifiesto.addEventListener("change",(e)=>{
     archivos.forEach((archivo,index)=>{
 
 
-        const div = document.createElement("div");
+       const div = document.createElement("div");
+
+
+        div.classList.add("item-manifiesto");
 
 
         div.innerHTML = `
 
-            <span>${archivo.name}</span>
 
-            <input 
-            class="numeroManifiesto"
-            data-index="${index}"
-            placeholder="Número manifiesto">
+            <div class="archivo-info">
+
+                <img src="../assets/img/icons/exceal.png">
+
+                <span>${archivo.name}</span>
+
+            </div>
+
+            <div>
+            
+                <small>Manifiesto</small>
+            
+                <input
+                class="numeroManifiesto"
+                data-index="${index}"
+                placeholder="00000">
+
+            </div>
+            
 
         `;
 
 
         listaManifiestos.appendChild(div);
+
+
+
+        const reader = new FileReader();
+
+
+
+        reader.onload = function(event){
+
+
+            const data =
+            new Uint8Array(event.target.result);
+
+
+
+            const workbook =
+            XLSX.read(data,{
+                type:"array"
+            });
+
+
+
+            const hoja =
+            workbook.Sheets[
+                workbook.SheetNames[0]
+            ];
+
+
+
+            const datosExcel =
+            XLSX.utils.sheet_to_json(hoja);
+
+
+
+            datosExcel.forEach(item=>{
+
+
+                baseGuias.push({
+
+
+                    guia:item.Guia,
+
+
+                    casillero:item.Casillero,
+
+
+                    servicio:item.Servicio,
+
+
+                    archivoIndex:index
+
+
+                });
+
+
+            });
+
+
+
+            console.log(baseGuias);
+
+
+        };
+
+
+        reader.readAsArrayBuffer(archivo);
+
 
 
     });
@@ -566,6 +736,128 @@ excelCasilleros.addEventListener("change",(e)=>{
     
     
     );
+
+
+});
+
+btnExportar.addEventListener("click",()=>{
+
+
+    let filas =
+    tbody.querySelectorAll("tr:not(.empty-row)");
+
+
+    if(filas.length === 0){
+
+
+        mostrarMensaje("No hay guías para exportar");
+
+        return;
+
+    }
+
+
+
+    let datosExportar = [];
+
+
+
+    filas.forEach(fila=>{
+
+
+        datosExportar.push({
+
+
+            Guia:
+            fila.children[1].textContent,
+
+
+            Casillero:
+            fila.children[2].textContent,
+
+
+            Cliente:
+            fila.children[3].textContent,
+
+
+            Peso:
+            fila.children[4].textContent,
+
+
+            Servicio:
+            fila.children[5].textContent,
+
+
+            Manifiesto:
+            fila.children[6].textContent,
+
+
+            Comentario:
+            fila.children[7].textContent,
+
+
+            Fecha:
+            new Date().toLocaleDateString()
+
+
+        });
+
+
+    });
+
+
+
+    const hoja =
+    XLSX.utils.json_to_sheet(datosExportar);
+
+
+
+    const libro =
+    XLSX.utils.book_new();
+
+
+
+    XLSX.utils.book_append_sheet(
+        libro,
+        hoja,
+        "LogiScan"
+    );
+
+    let fecha = new Date()
+    .toLocaleDateString("es-CO")
+    .replaceAll("/","-");
+
+
+    let manifiestos = [];
+
+
+    document
+    .querySelectorAll(".numeroManifiesto")
+    .forEach(input => {
+
+
+        if(input.value.trim() !== ""){
+
+
+            manifiestos.push(
+                input.value.trim()
+            );
+
+
+        }
+
+
+    });
+
+
+    let nombreArchivo = 
+    `DiloScan_${fecha}_${manifiestos.join("-")}.xlsx`;
+
+    XLSX.writeFile(
+        libro,
+        nombreArchivo
+    );
+
 
 
 });
