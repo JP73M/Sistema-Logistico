@@ -33,6 +33,7 @@ document.querySelector("#nombreArchivoCasilleros");
 
 
 
+
 function actualizarTabla(){
 
 
@@ -938,3 +939,19 @@ btnCerrarLote.addEventListener("click",()=>{
 
 
 });
+
+DiloModal.success(
+
+    "Prueba DiloModal",
+
+    "Si ves esta ventana, la librería está funcionando."
+
+);
+
+console.log("Dashboard cargado");
+console.log(DiloModal);
+
+DiloModal.success(
+    "Prueba",
+    "Hola Juan"
+);
