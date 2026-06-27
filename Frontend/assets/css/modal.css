@@ -1,0 +1,151 @@
+/* ===== Overlay ===== */
+
+.dilo-overlay{
+
+    position: fixed;
+
+    inset: 0;
+
+    background: rgba(0,0,0,.45);
+
+    display: none;
+
+    justify-content: center;
+
+    align-items: center;
+
+    z-index: 99999;
+
+    backdrop-filter: blur(4px);
+
+}
+
+/* ===== Modal ===== */
+
+.dilo-modal{
+
+    width: 430px;
+
+    background: white;
+
+    border-radius: 18px;
+
+    padding: 35px;
+
+    box-shadow: 0 18px 40px rgba(0,0,0,.18);
+
+    text-align: center;
+
+    animation: aparecer .25s ease;
+
+}
+
+/* ===== Icono ===== */
+
+.dilo-icono{
+
+    width: 70px;
+
+    height: 70px;
+
+    border-radius: 50%;
+
+    margin: auto;
+
+    margin-bottom: 20px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+/* ===== Imagen ===== */
+
+.dilo-icono img{
+
+    width:42px;
+
+}
+
+/* ===== Título ===== */
+
+.dilo-modal h2{
+
+    font-size:26px;
+
+    color:#111827;
+
+    margin-bottom:10px;
+
+}
+
+/* ===== Mensaje ===== */
+
+.dilo-modal p{
+
+    font-size:17px;
+
+    color:#6B7280;
+
+    line-height:26px;
+
+    margin-bottom:30px;
+
+}
+
+/* ===== Botones ===== */
+
+.dilo-modal button{
+
+    width:170px;
+
+    height:48px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#27348B;
+
+    color:white;
+
+    font-size:16px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+}
+
+.dilo-modal button:hover{
+
+    transform:scale(1.04);
+
+}
+
+/* ===== Animación ===== */
+
+@keyframes aparecer{
+
+    from{
+
+        opacity:0;
+
+        transform:scale(.85);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:scale(1);
+
+    }
+
+}

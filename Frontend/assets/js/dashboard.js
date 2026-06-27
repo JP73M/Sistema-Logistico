@@ -940,7 +940,7 @@ btnCerrarLote.addEventListener("click",()=>{
 
 });
 
-DiloModal.success(
+DiloUI.modal.success(
 
     "Prueba DiloModal",
 
@@ -951,7 +951,10 @@ DiloModal.success(
 console.log("Dashboard cargado");
 console.log(DiloModal);
 
-DiloModal.success(
-    "Prueba",
-    "Hola Juan"
+DiloUI.modal.success(
+
+    "Lote guardado",
+
+    "El lote fue guardado correctamente."
+
 );

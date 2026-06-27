@@ -41,9 +41,10 @@ document.querySelector("#diloMensaje");
 const botones =
 document.querySelector("#diloBotones");
 
-const DiloModal = {
+const DiloUI = {
 
-    // ===== Metodos publicos =====
+    modal:{
+            // ===== Metodos publicos =====
 
     success(titulo,mensaje){
 
@@ -103,6 +104,12 @@ const DiloModal = {
 
         mensaje.textContent = mensajeTexto;
 
+        if(tipo == "success"){
+            icono.innerHTML = `<img src="../assets/img/icons/modal/success.svg">`;
+
+            icono.style.background = "#DCFCE7"
+        }
+
         // Limpiar botones anteriores
         botones.innerHTML = "";
 
@@ -128,10 +135,11 @@ const DiloModal = {
        overlay.style.display = "none";
 
     }
+    }
 
 
 
 };
 
 console.log("Modal.js cargado");
-console.log(DiloModal);
+console.log(DiloUI);
