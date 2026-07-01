@@ -270,10 +270,15 @@ btnAgregar.addEventListener("click",()=>{
     if(!validarManifiestos()){
 
 
-    alert("Complete todos los manifiestos");
+    DiloUI.modal.error(
 
+        "Manifiestos incompletos",
 
-    return;
+        "Debe ingresar el número de todos los manifiestos antes de continuar."
+
+    );
+
+return;
 
 
 }
@@ -300,7 +305,13 @@ btnAgregar.addEventListener("click",()=>{
     if(existe){
 
 
-        mostrarMensaje("Esta guía ya fue agregada al lote");
+        DiloUI.modal.warning(
+
+            "Guía duplicada",
+
+            "La guía ya fue agregada al lote."
+
+        );
 
 
         inputGuia.value="";
@@ -318,11 +329,13 @@ btnAgregar.addEventListener("click",()=>{
     if(!validarManifiestos()){
 
 
-    alert("Complete todos los manifiestos");
+    DiloUI.modal.error(
 
+        "Manifiestos incompletos",
 
-    inputGuia.focus();
+        "Debe ingresar el número de todos los manifiestos antes de continuar."
 
+    );
 
     return;
 
@@ -347,7 +360,13 @@ btnAgregar.addEventListener("click",()=>{
 
     if(peso === ""){
 
-        mostrarMensaje("Ingrese un peso");
+        DiloUI.modal.error(
+
+            "Peso requerido",
+
+            "Debe ingresar el peso antes de continuar."
+
+        );
 
         return; 
 
@@ -852,8 +871,12 @@ btnCerrarLote.addEventListener("click",()=>{
     if(guias.length === 0){
 
 
-        mostrarMensaje(
-            "No hay guías para cerrar"
+        DiloUI.modal.warning(
+
+            "Lote vacío",
+
+            "No existen guías para cerrar el lote."
+
         );
 
 
@@ -932,22 +955,15 @@ btnCerrarLote.addEventListener("click",()=>{
 
 
 
-    mostrarMensaje(
-        "Lote cerrado correctamente"
+    DiloUI.modal.success(
+
+        "Lote guardado",
+
+        "El lote fue guardado y exportado correctamente."
+
     );
 
 
 
 });
-
-DiloUI.modal.info(
-
-    "Información",
-
-    "Proceso iniciado."
-
-);
-
-console.log("Dashboard cargado");
-console.log(DiloModal);
 
