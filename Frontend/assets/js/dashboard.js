@@ -940,21 +940,14 @@ btnCerrarLote.addEventListener("click",()=>{
 
 });
 
-DiloUI.modal.success(
+DiloUI.modal.info(
 
-    "Prueba DiloModal",
+    "Información",
 
-    "Si ves esta ventana, la librería está funcionando."
+    "Proceso iniciado."
 
 );
 
 console.log("Dashboard cargado");
 console.log(DiloModal);
 
-DiloUI.modal.success(
-
-    "Lote guardado",
-
-    "El lote fue guardado correctamente."
-
-);

@@ -41,6 +41,42 @@ document.querySelector("#diloMensaje");
 const botones =
 document.querySelector("#diloBotones");
 
+const tiposModal = {
+
+    success:{
+
+        icono:"success.svg",
+
+        fondo:"#DCFCE7"
+
+    },
+
+    error:{
+
+        icono:"error.svg",
+
+        fondo:"#FEE2E2"
+
+    },
+
+    warning:{
+
+        icono:"warning.svg",
+
+        fondo:"#FEF3C7"
+
+    },
+
+    info:{
+
+        icono:"info.svg",
+
+        fondo:"#DBEAFE"
+
+    }
+
+};
+
 const DiloUI = {
 
     modal:{
@@ -104,11 +140,13 @@ const DiloUI = {
 
         mensaje.textContent = mensajeTexto;
 
-        if(tipo == "success"){
-            icono.innerHTML = `<img src="../assets/img/icons/modal/success.svg">`;
+        const actual = tiposModal[tipo];
 
-            icono.style.background = "#DCFCE7"
-        }
+        icono.innerHTML = `
+            <img src="../assets/img/icons/modal/${actual.icono}">
+        `;
+
+icono.style.background = actual.fondo;
 
         // Limpiar botones anteriores
         botones.innerHTML = "";
