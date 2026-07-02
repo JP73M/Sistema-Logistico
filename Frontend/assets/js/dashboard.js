@@ -954,16 +954,7 @@ btnCerrarLote.addEventListener("click",()=>{
 }
 
 
-
-    DiloUI.modal.success(
-
-        "Lote guardado",
-
-        "El lote fue guardado y exportado correctamente."
-
-    );
-
-
-
 });
+
+
 

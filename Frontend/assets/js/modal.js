@@ -16,7 +16,9 @@ document.body.insertAdjacentHTML("beforeend",`
 
         </p>
 
-        <div id="diloBotones">
+        <div
+            id="diloBotones"
+            class="dilo-botones">
 
         </div>
 
@@ -128,9 +130,25 @@ const DiloUI = {
 
     },
 
+    confirm(titulo, mensaje, callback){
+
+    this.mostrar(
+
+        "confirm",
+
+        titulo,
+
+        mensaje,
+
+        callback
+
+    );
+
+},
+
     // ===== Metodos internos =====
 
-    mostrar(tipo,tituloTexto,mensajeTexto){
+    mostrar(tipo,tituloTexto,mensajeTexto, callback = null){
 
         // Mostrar el modal
         overlay.style.display = "flex";
@@ -146,24 +164,42 @@ const DiloUI = {
             <img src="../assets/img/icons/modal/${actual.icono}">
         `;
 
-icono.style.background = actual.fondo;
+        icono.style.background = actual.fondo;
 
-        // Limpiar botones anteriores
+        // Limpiar botones
         botones.innerHTML = "";
 
-        // Crear botón aceptar
-        const btnAceptar = document.createElement("button");
+        if(tipo === "confirm"){
 
-        btnAceptar.textContent = "Aceptar";
+            botones.innerHTML = `
 
-        botones.appendChild(btnAceptar);
+                <button id="btnCancelarModal" class="btn-secundario">
 
-        // Cerrar al hacer clic
-        btnAceptar.addEventListener("click",()=>{
+                    Cancelar
 
-            this.cerrar();
+                </button>
 
-        });
+                <button id="btnAceptarModal" class="btn-principal">
+
+                    Nuevo lote
+
+                </button>
+
+            `;
+
+        }else{
+
+            botones.innerHTML = `
+
+                <button id="btnAceptarModal" class="btn-principal">
+
+                    Aceptar
+
+                </button>
+
+            `;
+
+        }
 
 
     },
