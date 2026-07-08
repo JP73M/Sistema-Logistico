@@ -929,29 +929,13 @@ btnCerrarLote.addEventListener("click",()=>{
 
     exportarExcel(guias);
 
-    let nuevo =
-    confirm(
-        "Lote cerrado correctamente\n\n¿Desea iniciar un nuevo lote?"
+        DiloUI.modal.confirm(
+
+        "Nuevo lote",
+
+        "¿Desea iniciar un nuevo lote?"
+
     );
-
-
-    if(nuevo){
-
-
-        tbody.querySelectorAll("tr:not(.empty-row)")
-        .forEach(fila=>{
-
-            fila.remove();
-
-        });
-
-
-        actualizarTabla();
-
-        actualizarCards();
-
-
-}
 
 
 });

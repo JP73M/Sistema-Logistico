@@ -75,6 +75,11 @@ const tiposModal = {
 
         fondo:"#DBEAFE"
 
+    },
+
+    confirm:{
+        icono:"info.svg",
+        fondo:"#DBEAFE"
     }
 
 };
