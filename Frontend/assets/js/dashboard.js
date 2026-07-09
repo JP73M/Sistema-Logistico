@@ -937,8 +937,26 @@ btnCerrarLote.addEventListener("click",()=>{
 
     );
 
+    DiloUI.modal.confirm(
+
+        "Nuevo lote",
+
+        "¿Desea iniciar un nuevo lote?",
+
+        ()=>{
+
+            console.log("Callback ejecutado");
+
+        }
+
+    );
+
+
+
 
 });
+
+
 
 
 

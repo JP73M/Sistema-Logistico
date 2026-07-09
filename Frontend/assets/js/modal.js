@@ -174,6 +174,9 @@ const DiloUI = {
         // Limpiar botones
         botones.innerHTML = "";
 
+        const btnAceptar = document.querySelector("#btnAceptarModal");
+        const btnCancelar = document.querySelector("#btnCancelarModal");
+
         if(tipo === "confirm"){
 
             botones.innerHTML = `
@@ -203,6 +206,16 @@ const DiloUI = {
                 </button>
 
             `;
+
+        }
+
+        if(btnCancelar){
+
+            btnCancelar.addEventListener("click",()=>{
+
+                this.cerrar();
+
+            });
 
         }
 
