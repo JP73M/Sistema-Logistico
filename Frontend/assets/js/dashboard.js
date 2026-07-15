@@ -456,6 +456,21 @@ function limpiarCampos(){
 
 }
 
+function limpiarLote(){
+
+    tbody.querySelectorAll("tr:not(.empty-row)")
+    .forEach(fila=>{
+
+        fila.remove();
+
+    });
+
+    actualizarTabla();
+
+    actualizarCards();
+
+}
+
 
 tbody.addEventListener("click", (e)=>{
 
@@ -945,7 +960,7 @@ btnCerrarLote.addEventListener("click",()=>{
 
         ()=>{
 
-            console.log("Callback ejecutado");
+            limpiarLote();
 
         }
 
