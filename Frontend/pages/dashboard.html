@@ -23,7 +23,7 @@
 
              <a class="active" href=""><img src="../assets/img/icons/Home.png" alt="">Dashboard</a>
 
-             <a class="active" href=""><img src="../assets/img/icons/Docs.png" alt="">Historial</a>
+             <a class="active" href="historial.html" class="nav-link"><img src="../assets/img/icons/Docs.png" alt="">Historial</a>
 
              <a class="active" href=""><img src="../assets/img/icons/Truck.png" alt="">Manifiestos</a>
 
@@ -115,7 +115,7 @@
 
                    <div class="card-info">
 
-                        <h4>Gulas Procesadas Hoy</h4>
+                        <h4>Guias Procesadas Hoy</h4>
 
                         <h2 id="totalGuias">0</h2>
 
@@ -136,8 +136,12 @@
 
                         <h4>Peso total hoy</h4>
 
-                        <h2>
-                            <span id="pesoTotal">0</span> LB
+                        <h2 id="pesoTotalCard">
+
+                            <span id="pesoTotal">0</span>
+
+                            <span class="unidadPeso">LB</span>
+                            
                         </h2>
 
                         <p>Peso acumulado</p>
@@ -482,16 +486,9 @@
 
                     <div class="table-actions">
 
-
-                        <button class="btn-save">
-                            Guardar lote
-                        </button>
-
-
                         <button id="btnCerrarLote" class="btn-save">
-                            Cerrar lote
+                            Finalizar lote
                         </button>
-
 
                     </div>
 

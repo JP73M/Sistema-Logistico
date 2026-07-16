@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Historial</title>
+
+    <link rel="icon" href="../assets/img/Logo_D_White.png">
+
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+
+    <link rel="stylesheet" href="../assets/css/historial.css">
+
+</head>
+
+<body>
+
+    <div class="dashboard">
+
+        <aside class="sidebar">
+
+           <div class="logo_sidebar">
+                <img src="../assets/img/Logo-Complete-Blue.png" alt="">
+           </div>
+
+           <nav>
+
+             <a class="active" href="dashboard.html"><img src="../assets/img/icons/Home.png" alt="">Dashboard</a>
+
+             <a class="active" href="historial.html" class="nav-link"><img src="../assets/img/icons/Docs.png" alt="">Historial</a>
+
+             <a class="active" href=""><img src="../assets/img/icons/Truck.png" alt="">Manifiestos</a>
+
+             <a class="active" href=""><img src="../assets/icons/user.png" alt="">Usuarios</a>
+
+             <a class="active" href=""><img src="../assets/img/icons/Report.png" alt="">Reportes</a>
+
+             <a class="active" href=""><img src="../assets/img/icons/Configuration.png" alt="">Configuracion</a>
+           </nav>
+
+           <div class="logout">
+                <a class="active" onclick="logout()"><img src="../assets/img/icons/Logout.png" alt="">Cerrar sesion</a>
+           </div>
+
+            <span class="span">
+                Versión 1.0.0
+            </span>
+
+        </aside>
+
+
+
+        <main class="content">
+
+            <header class="header">
+
+                <div>
+
+                    <h1>
+
+                        Historial
+
+                    </h1>
+
+                    <span>
+
+                        Consulta de lotes procesados
+
+                    </span>
+
+                </div>
+
+            </header>
+
+            <section class="busqueda">
+
+                <input
+
+                    type="text"
+
+                    placeholder="Buscar guía, manifiesto, casillero o cliente..."
+
+                    id="txtBuscar">
+
+            </section>
+
+            <section class="filtros">
+
+                <label>
+
+                    <input
+
+                        type="radio"
+
+                        name="buscar"
+
+                        checked>
+
+                    Guía
+
+                </label>
+
+                <label>
+
+                    <input
+
+                        type="radio"
+
+                        name="buscar">
+
+                    Manifiesto
+
+                </label>
+
+                <label>
+
+                    <input
+
+                        type="radio"
+
+                        name="buscar">
+
+                    Casillero
+
+                </label>
+
+                <label>
+
+                    <input
+
+                        type="radio"
+
+                        name="buscar">
+
+                    Cliente
+
+                </label>
+
+                <label>
+
+                    <input
+
+                        type="radio"
+
+                        name="buscar">
+
+                    Fecha
+
+                </label>
+
+            </section>
+
+            <section class="tablaHistorial">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>#</th>
+
+                            <th>Guía</th>
+
+                            <th>Casillero</th>
+
+                            <th>Cliente</th>
+
+                            <th>Peso</th>
+
+                            <th>Servicio</th>
+
+                            <th>Manifiesto</th>
+
+                            <th>Fecha</th>
+
+                            <th>Operador</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+
+                            <td colspan="9">
+
+                                No hay registros.
+
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </section>
+
+        </main>
+
+    </div>
+
+</body>
+
+</html>

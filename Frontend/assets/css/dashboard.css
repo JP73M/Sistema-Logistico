@@ -1389,3 +1389,21 @@ tbody tr:hover{
 
 }
 
+#pesoTotalCard{
+
+    display:flex;
+
+    align-items:baseline;
+
+    gap:8px;
+
+}
+
+.unidadPeso{
+
+    font-size:34px;
+    font-weight:700;
+    color:#111827;
+
+}
+
