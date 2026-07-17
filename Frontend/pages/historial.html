@@ -57,155 +57,207 @@
 
         <main class="content">
 
-            <header class="header">
+            <div class="historial-container">
 
-                <div>
+                <!-- HEADER -->
+                <div class="page-header">
+                    <div>
+                    <h1>Historial</h1>
+                    <p>Consulta de lotes procesados</p>
+                    </div>
+                </div>
 
-                    <h1>
+                <!-- CARDS -->
+                <section class="resume-bar">
 
-                        Historial
+                    <div class="resume-card">
 
-                    </h1>
+                        <div class="card-icon blue">
+                            <img src="../assets/img/icons/Docs.png" alt="Guías">
+                        </div>
 
-                    <span>
+                        <div class="card-info">
+                            <span>Total guías</span>
+                            <h2 id="lblTotalGuias">0</h2>
+                        </div>
 
-                        Consulta de lotes procesados
+                    </div>
 
-                    </span>
+                    <div class="resume-card">
+
+                        <div class="card-icon green">
+                            <img src="../assets/img/icons/cont.png" alt="Lotes">
+                        </div>
+
+                        <div class="card-info">
+                            <span>Total lotes</span>
+                            <h2 id="lblTotalLotes">0</h2>
+                        </div>
+
+                    </div>
+
+                    <div class="resume-card">
+
+                        <div class="card-icon purple">
+                            <img src="../assets/img/icons/cont.png" alt="Último lote">
+                        </div>
+
+                        <div class="card-info">
+                            <span>Último lote</span>
+                            <h2 id="lblUltimoLote">---</h2>
+                        </div>
+
+                    </div>
+
+                    <div class="resume-card">
+
+                        <div class="card-icon yellow">
+                            <img src="../assets/img/icons/Weigth.png" alt="Peso">
+                        </div>
+
+                        <div class="card-info">
+                            <span>Peso total</span>
+                            <h2 id="lblPesoTotal">0 LB</h2>
+                        </div>
+
+                    </div>
+
+                </section>
+
+                <!-- CENTRO DE BÚSQUEDA -->
+                <div class="search-card">
+
+                    <div class="search-header">
+                    <h3>Centro de búsqueda</h3>
+                    <br>
+                    </div>
+
+                    <div class="search-bar">
+                    <input type="text" placeholder="🔍 Buscar guía, manifiesto, casillero o cliente...">
+                    <button class="btn-primary">Buscar</button>
+                    <button class="btn-secondary">Limpiar</button>
+                    </div>
+
+                    <br>
+
+                    <!-- FILTROS -->
+                    <div class="filters">
+
+                    <button class="filter active">Todas</button>
+                    <button class="filter">Guías</button>
+                    <button class="filter">Manifiestos</button>
+                    <button class="filter">Casilleros</button>
+                    <button class="filter">Clientes</button>
+                    <button class="filter" id="btn-fecha">Fechas</button>
+
+                    </div>
 
                 </div>
 
-            </header>
+                <section class="table-card">
 
-            <section class="busqueda">
+                    <div class="table-header">
 
-                <input
+                        <div>
 
-                    type="text"
+                            <h3>Resultados de búsqueda</h3>
 
-                    placeholder="Buscar guía, manifiesto, casillero o cliente..."
+                            <span id="lblResultados">
+                                Mostrando 0 registros
+                            </span>
 
-                    id="txtBuscar">
+                        </div>
 
-            </section>
+                        <div>
 
-            <section class="filtros">
+                            <button class="btn-export">
 
-                <label>
+                                <i class="fa-solid fa-file-export"></i>
 
-                    <input
+                                Exportar
 
-                        type="radio"
+                            </button>
 
-                        name="buscar"
+                        </div>
 
-                        checked>
+                    </div>
 
-                    Guía
+                    <div class="table-container">
 
-                </label>
+                        <table>
 
-                <label>
+                            <thead>
 
-                    <input
+                                <tr>
 
-                        type="radio"
+                                    <th>Lote</th>
 
-                        name="buscar">
+                                    <th>Guía</th>
 
-                    Manifiesto
+                                    <th>Casillero</th>
 
-                </label>
+                                    <th>Cliente</th>
 
-                <label>
+                                    <th>Peso</th>
 
-                    <input
+                                    <th>Servicio</th>
 
-                        type="radio"
+                                    <th>Manifiesto</th>
 
-                        name="buscar">
+                                    <th>Fecha</th>
 
-                    Casillero
+                                    <th></th>
 
-                </label>
+                                </tr>
 
-                <label>
+                            </thead>
 
-                    <input
+                            <tbody id="tablaHistorial">
 
-                        type="radio"
+                                <tr>
 
-                        name="buscar">
+                                    <td>00185</td>
 
-                    Cliente
+                                    <td>784512365</td>
 
-                </label>
+                                    <td>BOX-125</td>
 
-                <label>
+                                    <td>Amazon</td>
 
-                    <input
+                                    <td>12 LB</td>
 
-                        type="radio"
+                                    <td>Aéreo</td>
 
-                        name="buscar">
+                                    <td>MNF-00215</td>
 
-                    Fecha
+                                    <td>16/07/2026</td>
 
-                </label>
+                                    <td>
 
-            </section>
+                                        <button class="btn-view">
 
-            <section class="tablaHistorial">
+                                            <i class="fa-solid fa-eye"></i>
 
-                <table>
+                                        </button>
 
-                    <thead>
+                                    </td>
 
-                        <tr>
+                                </tr>
 
-                            <th>#</th>
+                            </tbody>
 
-                            <th>Guía</th>
+                        </table>
 
-                            <th>Casillero</th>
+                    </div>
 
-                            <th>Cliente</th>
+                </section>
 
-                            <th>Peso</th>
-
-                            <th>Servicio</th>
-
-                            <th>Manifiesto</th>
-
-                            <th>Fecha</th>
-
-                            <th>Operador</th>
-
-                        </tr>
-
-                    </thead>
-
-                    <tbody>
-
-                        <tr>
-
-                            <td colspan="9">
-
-                                No hay registros.
-
-                            </td>
-
-                        </tr>
-
-                    </tbody>
-
-                </table>
-
-            </section>
-
+            </div>
         </main>
 
     </div>
+
+    <script src="../assets/js/historial.js"></script>
 
 </body>
 

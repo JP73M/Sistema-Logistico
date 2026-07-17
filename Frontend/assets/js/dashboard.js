@@ -975,3 +975,6 @@ btnCerrarLote.addEventListener("click",()=>{
 
 
 
+
+
+
