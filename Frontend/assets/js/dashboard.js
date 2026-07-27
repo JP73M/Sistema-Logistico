@@ -971,6 +971,24 @@ btnCerrarLote.addEventListener("click",()=>{
 
 });
 
+const btnManual = document.querySelector("#btnManual");
+
+const manualPanel = document.querySelector("#manualPanel");
+
+const btnCerrarManual =
+document.querySelector("#btnCerrarManual");
+
+btnManual.addEventListener("click",()=>{
+
+    manualPanel.style.display="block";
+
+});
+
+btnCerrarManual.addEventListener("click",()=>{
+
+    manualPanel.style.display="none";
+
+});
 
 
 

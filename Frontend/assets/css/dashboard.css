@@ -1407,3 +1407,109 @@ tbody tr:hover{
 
 }
 
+.scan-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:25px;
+
+}
+
+.scan-title{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+}
+
+.btn-manual{
+
+    background:white;
+
+    border:2px solid #2F3B8F;
+
+    color:#2F3B8F;
+
+    padding:10px 18px;
+
+    border-radius:12px;
+
+    font-size:14px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+}
+
+.btn-manual:hover{
+
+    background:#2F3B8F;
+
+    color:white;
+
+}
+
+.manual-panel{
+
+    display:none;
+
+    margin-bottom:25px;
+
+    padding:22px;
+
+    border-radius:14px;
+
+    background:#f8fbff;
+
+    border:2px solid #dbeafe;
+
+}
+
+.manual-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+}
+
+.close-manual{
+
+    width:34px;
+
+    height:34px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:white;
+
+    cursor:pointer;
+
+    font-size:18px;
+
+    transition:.2s;
+
+}
+
+.close-manual:hover{
+
+    background:#fee2e2;
+
+    color:#dc2626;
+
+}
+
