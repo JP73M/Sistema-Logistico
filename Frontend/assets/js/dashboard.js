@@ -980,13 +980,15 @@ document.querySelector("#btnCerrarManual");
 
 btnManual.addEventListener("click",()=>{
 
-    manualPanel.style.display="block";
+    
+
+    manualPanel.classList.add("active");
 
 });
 
 btnCerrarManual.addEventListener("click",()=>{
 
-    manualPanel.style.display="none";
+    manualPanel.classList.remove("active");
 
 });
 
