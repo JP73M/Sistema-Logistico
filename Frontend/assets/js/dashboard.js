@@ -980,9 +980,9 @@ document.querySelector("#btnCerrarManual");
 
 btnManual.addEventListener("click",()=>{
 
-    
-
     manualPanel.classList.add("active");
+
+    manualGuia.focus();
 
 });
 
@@ -992,7 +992,31 @@ btnCerrarManual.addEventListener("click",()=>{
 
 });
 
+const manualGuia = document.querySelector("#manualGuia");
 
+document.addEventListener("keydown", (e) => {
+
+    if(e.key === "Escape"){
+
+        manualPanel.classList.remove("active");
+
+    }
+
+});
+
+document.addEventListener("keydown", (e) => {
+
+    if(e.key === "Escape" && manualPanel.classList.contains("active")){
+
+        manualPanel.classList.remove("active");
+
+    }
+
+});
+
+document.body.style.overflow = "hidden";
+
+document.body.style.overflow = "";
 
 
 
