@@ -9,6 +9,8 @@ const counter = document.querySelector("#counter");
 
 let baseGuias = [];
 
+let baseGuiasControl = [];
+
 let baseCasilleros = [];
 
 const totalGuias = document.querySelector("#totalGuias");
@@ -531,78 +533,79 @@ function actualizarCards(){
 
 }
 
-const excelManifiesto = document.querySelector("#excelManifiesto");
+// ===============================
+// MANIFIESTO MISIIL
+// ===============================
+
+const excelManifiestoMisiil =
+document.querySelector("#excelManifiestoMisiil");
+
+const nombreArchivoManifiestoMisiil =
+document.querySelector("#nombreArchivoManifiestoMisiil");
+
+const listaManifiestosMisiil =
+document.querySelector("#listaManifiestosMisiil");
 
 
-excelManifiesto.addEventListener("change",(e)=>{
+excelManifiestoMisiil.addEventListener("change",(e)=>{
 
-
-    const archivos = Array.from(e.target.files);
-
-    totalManifiestos.textContent =
-    archivos.length;
-
+    const archivos =
+    Array.from(e.target.files);
 
     baseGuias = [];
 
+    listaManifiestosMisiil.innerHTML = "";
 
-    listaManifiestos.innerHTML = "";
-
-
-    nombreArchivoManifiesto.textContent =
+    nombreArchivoManifiestoMisiil.textContent =
     `${archivos.length} archivos cargados`;
-
 
 
     archivos.forEach((archivo,index)=>{
 
-
-       const div = document.createElement("div");
-
+        const div =
+        document.createElement("div");
 
         div.classList.add("item-manifiesto");
 
-
         div.innerHTML = `
-
 
             <div class="archivo-info">
 
-                <img src="../assets/img/icons/exceal.png">
+                <img
+                    src="../assets/img/icons/exceal.png"
+                >
 
                 <span>${archivo.name}</span>
 
             </div>
 
             <div>
-            
-                <small>Manifiesto</small>
-            
+
+                <small>Manifiesto Misiil</small>
+
                 <input
-                class="numeroManifiesto"
-                data-index="${index}"
-                placeholder="00000">
+                    class="numeroManifiesto"
+                    data-index="${index}"
+                    placeholder="00000"
+                >
 
             </div>
-            
 
         `;
 
-
-        listaManifiestos.appendChild(div);
-
+        listaManifiestosMisiil.appendChild(div);
 
 
-        const reader = new FileReader();
-
+        const reader =
+        new FileReader();
 
 
         reader.onload = function(event){
 
-
             const data =
-            new Uint8Array(event.target.result);
-
+            new Uint8Array(
+                event.target.result
+            );
 
 
             const workbook =
@@ -611,6 +614,141 @@ excelManifiesto.addEventListener("change",(e)=>{
             });
 
 
+            const hoja =
+            workbook.Sheets[
+                workbook.SheetNames[0]
+            ];
+
+
+            const datosExcel =
+            XLSX.utils.sheet_to_json(hoja);
+
+
+            datosExcel.forEach(item=>{
+
+                baseGuias.push({
+
+                    guia:
+                    String(item.Guia || "").trim(),
+
+                    trk:
+                    String(
+                        item["Numero De Rastreo"] || ""
+                    ).trim(),
+
+                    casillero:
+                    String(
+                        item.Casillero || ""
+                    ).trim(),
+
+                    servicio:
+                    String(
+                        item.Servicio || ""
+                    ).trim(),
+
+                    archivoIndex:index,
+
+                    origen:"Misiil"
+
+                });
+
+            });
+
+
+            console.log(
+                "BASE MISIIL:",
+                baseGuias
+            );
+
+        };
+
+
+        reader.readAsArrayBuffer(archivo);
+
+    });
+
+});
+
+// ===============================
+// MANIFIESTO CONTROLBOX
+// ===============================
+
+const excelManifiestoControl =
+document.querySelector("#excelManifiestoControl");
+
+const nombreArchivoManifiestoControl =
+document.querySelector("#nombreArchivoManifiestoControl");
+
+const listaManifiestosControl =
+document.querySelector("#listaManifiestosControl");
+
+
+excelManifiestoControl.addEventListener("change",(e)=>{
+
+    const archivos =
+    Array.from(e.target.files);
+
+    baseGuiasControl = [];
+
+    listaManifiestosControl.innerHTML = "";
+
+    nombreArchivoManifiestoControl.textContent =
+    `${archivos.length} archivos cargados`;
+
+
+    archivos.forEach((archivo,index)=>{
+
+        const div =
+        document.createElement("div");
+
+        div.classList.add("item-manifiesto");
+
+        div.innerHTML = `
+
+            <div class="archivo-info">
+
+                <img
+                    src="../assets/img/icons/exceal.png"
+                >
+
+                <span>${archivo.name}</span>
+
+            </div>
+
+            <div>
+
+                <small>Manifiesto ControlBox</small>
+
+                <input
+                    class="numeroManifiestoControl"
+                    data-index="${index}"
+                    placeholder="00000"
+                >
+
+            </div>
+
+        `;
+
+        listaManifiestosControl.appendChild(div);
+
+
+        const reader =
+        new FileReader();
+
+
+        reader.onload = function(event){
+
+            const data =
+            new Uint8Array(
+                event.target.result
+            );
+
+
+            const workbook =
+            XLSX.read(data,{
+                type:"array"
+            });
+
 
             const hoja =
             workbook.Sheets[
@@ -618,49 +756,52 @@ excelManifiesto.addEventListener("change",(e)=>{
             ];
 
 
-
             const datosExcel =
             XLSX.utils.sheet_to_json(hoja);
 
 
-
             datosExcel.forEach(item=>{
 
+                baseGuiasControl.push({
 
-                baseGuias.push({
+                    guia:
+                    String(item["Guia#"] || "").trim(),
 
+                    trk:
+                    String(
+                        item["TRACKING"] || ""
+                    ).trim(),
 
-                    guia:item.Guia,
+                    nombreRemitente:
+                    String(
+                        item["Nombre del Remitente"] || ""
+                    ).trim(),
 
+                    servicio:
+                    String(
+                        item["Servicio"] || ""
+                    ).trim(),
 
-                    casillero:item.Casillero,
+                    archivoIndex:index,
 
-
-                    servicio:item.Servicio,
-
-
-                    archivoIndex:index
-
+                    origen:"ControlBox"
 
                 });
-
 
             });
 
 
-
-            console.log(baseGuias);
-
+            console.log(
+                "BASE CONTROLBOX:",
+                baseGuiasControl
+            );
 
         };
 
 
         reader.readAsArrayBuffer(archivo);
 
-
-
     });
-
 
 });
 
