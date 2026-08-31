@@ -345,17 +345,29 @@ return;
 }
 
     let datos = baseGuias.find(
-
         item => item.guia === guia
-
     );
 
+    let origen = "Misiil";
 
+    if (!datos) {
 
-    if(!datos){
+        datos = baseGuiasControl.find(
+            item => item.guia === guia
+        );
+
+        origen = "ControlBox";
+
+    }
+
+    if (!datos) {
+
+        DiloUI.modal.error(
+            "Guía no encontrada",
+            "La guía no se encuentra en el manifiesto Misiil ni en ControlBox."
+        );
 
         return;
-
     }
 
 
@@ -377,23 +389,39 @@ return;
 
 
 
-        let cliente = baseCasilleros.find(item =>
+    let nombreCliente = "No encontrado";
 
+    if (origen === "Misiil") {
+
+        let cliente = baseCasilleros.find(item =>
             item.casillero.replace("DILO","DL")
             ===
             datos.casillero.replace("DILO","DL")
-
         );
 
+        nombreCliente = cliente
+            ? cliente.nombre
+            : "No encontrado";
 
-        let nombreCliente = cliente ? cliente.nombre : "No encontrado";
+    } else {
 
-        let numeroManifiesto =
-        obtenerManifiesto(datos.archivoIndex);
+        nombreCliente =
+            datos.nombreRemitente || "No encontrado";
+
+    }
+
+    let numeroManifiesto = "---";
+
+    if (origen === "Misiil") {
+
+        numeroManifiesto =
+            obtenerManifiesto(datos.archivoIndex);
+
+    }
 
 
         
-        const fila = document.createElement("tr");
+    const fila = document.createElement("tr");
 
 
         fila.innerHTML = `
