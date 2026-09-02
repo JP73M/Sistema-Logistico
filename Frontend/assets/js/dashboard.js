@@ -186,6 +186,8 @@ const inputManifiesto = document.querySelector("#inputManifiesto");
 
 inputGuia.addEventListener("input", ()=>{
 
+    const guiaBuscada = inputGuia.value.trim();
+
 
     let resultado = baseGuias.find(
         item => item.guia === guiaBuscada
@@ -218,8 +220,7 @@ inputGuia.addEventListener("input", ()=>{
 
             let cliente = baseCasilleros.find(item =>
 
-                item.casillero.replace("DILO","DL")
-                ===
+                item.casillero.replace("DILO","DL") ===
                 resultado.casillero.replace("DILO","DL")
 
             );
@@ -426,8 +427,7 @@ return;
     if (origen === "Misiil") {
 
         let cliente = baseCasilleros.find(item =>
-            item.casillero.replace("DILO","DL")
-            ===
+            item.casillero.replace("DILO","DL") ===
             datos.casillero.replace("DILO","DL")
         );
 
