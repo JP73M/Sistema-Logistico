@@ -187,62 +187,94 @@ const inputManifiesto = document.querySelector("#inputManifiesto");
 inputGuia.addEventListener("input", ()=>{
 
 
-    let guiaBuscada = inputGuia.value;
-
-
     let resultado = baseGuias.find(
-
         item => item.guia === guiaBuscada
-
     );
+
+    let origen = "Misiil";
+
+    if (!resultado) {
+
+        resultado = baseGuiasControl.find(
+            item => item.guia === guiaBuscada
+        );
+
+        origen = "ControlBox";
+
+    }
 
 
 
     if(resultado){
 
+        let nombreCliente = "No encontrado";
+        let numeroManifiesto = "---";
 
-        let cliente = baseCasilleros.find(item =>
+        // =========================
+        // MISIIL
+        // =========================
 
-            item.casillero.replace("DILO","DL")
-            ===
-            resultado.casillero.replace("DILO","DL")
+        if(origen === "Misiil"){
 
-        );
+            let cliente = baseCasilleros.find(item =>
 
+                item.casillero.replace("DILO","DL")
+                ===
+                resultado.casillero.replace("DILO","DL")
 
+            );
 
-        infoCasillero.textContent = resultado.casillero;
+            if(cliente){
 
+                nombreCliente = cliente.nombre;
 
-        if(cliente){
+            }
 
-            infoNombre.textContent = cliente.nombre;
+            infoCasillero.textContent =
+                resultado.casillero || "---";
 
-        }else{
-
-            infoNombre.textContent = "No encontrado";
+            numeroManifiesto =
+                obtenerManifiesto(resultado.archivoIndex);
 
         }
 
+        // =========================
+        // CONTROLBOX
+        // =========================
 
+        else if(origen === "ControlBox"){
 
-        infoServicio.textContent = resultado.servicio;
+            infoCasillero.textContent = "---";
+
+            nombreCliente =
+                resultado.nombreRemitente || "No encontrado";
+
+            const inputManifiestoControl =
+                document.querySelector(
+                    `.numeroManifiestoControl[data-index="${resultado.archivoIndex}"]`
+                );
+
+            if(inputManifiestoControl){
+
+                numeroManifiesto =
+                    inputManifiestoControl.value.trim();
+
+            }
+
+        }
+
+        // =========================
+        // MOSTRAR INFORMACIÓN
+        // =========================
+
+        infoNombre.textContent =
+            nombreCliente;
+
+        infoServicio.textContent =
+            resultado.servicio || "---";
 
         infoManifiesto.textContent =
-        obtenerManifiesto(resultado.archivoIndex);
-
-
-    }else{
-
-
-        infoCasillero.textContent = "---";
-
-        infoNombre.textContent = "---";
-
-        infoServicio.textContent = "---";
-
-        infoManifiesto.textContent = "---";
-
+            numeroManifiesto;
 
     }
 
@@ -417,8 +449,21 @@ return;
         numeroManifiesto =
             obtenerManifiesto(datos.archivoIndex);
 
-    }
+    } else if (origen === "ControlBox") {
 
+        const inputManifiestoControl =
+            document.querySelector(
+                `.numeroManifiestoControl[data-index="${datos.archivoIndex}"]`
+            );
+
+        if (inputManifiestoControl) {
+
+            numeroManifiesto =
+                inputManifiestoControl.value.trim();
+
+        }
+
+    }
 
         
     const fila = document.createElement("tr");
@@ -429,6 +474,8 @@ return;
         <td></td>
 
         <td>${datos.guia}</td>
+
+        <td>${datos.trk || "---"}</td>
 
         <td>${datos.casillero}</td>
 
@@ -543,7 +590,7 @@ function actualizarCards(){
     filas.forEach(fila=>{
 
 
-        let valorPeso = fila.children[4].textContent;
+        let valorPeso = fila.children[5].textContent;
 
 
         peso += parseFloat(valorPeso);
@@ -946,56 +993,44 @@ excelCasilleros.addEventListener("change",(e)=>{
 
 function obtenerDatosLote(){
 
-
     let filas =
-    tbody.querySelectorAll("tr:not(.empty-row)");
-
+        tbody.querySelectorAll("tr:not(.empty-row)");
 
     let guias = [];
 
-
-    filas.forEach(fila=>{
-
+    filas.forEach(fila => {
 
         guias.push({
 
-
             Guia:
-            fila.children[1].textContent,
+                fila.children[1].textContent,
 
+            TRK:
+                fila.children[2].textContent,
 
             Casillero:
-            fila.children[2].textContent,
-
+                fila.children[3].textContent,
 
             Cliente:
-            fila.children[3].textContent,
-
+                fila.children[4].textContent,
 
             Peso:
-            fila.children[4].textContent,
-
+                fila.children[5].textContent,
 
             Servicio:
-            fila.children[5].textContent,
-
+                fila.children[6].textContent,
 
             Manifiesto:
-            fila.children[6].textContent,
-
+                fila.children[7].textContent,
 
             Comentario:
-            fila.children[7].textContent
-
+                fila.children[8].textContent
 
         });
 
-
     });
 
-
     return guias;
-
 
 }
 

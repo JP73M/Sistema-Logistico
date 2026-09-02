@@ -1027,6 +1027,55 @@ textarea:focus{
 
 }
 
+/* Contenido interno de las tarjetas de archivos */
+
+.upload-card > div {
+    flex: 1;
+    min-width: 0;
+}
+
+.upload-card > div > p {
+    margin-bottom: 8px;
+}
+
+/* Lista de archivos cargados */
+
+.upload-card > div > div {
+    width: 100%;
+}
+
+/* Fila de cada archivo */
+
+.upload-card .archivo-manifiesto {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+}
+
+/* Input del número de manifiesto */
+
+.numeroManifiestoMisiil,
+.numeroManifiestoControl {
+    width: 95px;
+    height: 36px;
+
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+
+    padding: 0 10px;
+
+    font-size: 14px;
+    color: #111827;
+
+    outline: none;
+}
+
+.numeroManifiestoMisiil:focus,
+.numeroManifiestoControl:focus {
+    border: 2px solid #27348b;
+}
+
 .file-loaded{
 
     color:#15803d;
