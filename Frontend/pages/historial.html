@@ -76,9 +76,35 @@
                     </div>
 
                     <div class="search-bar">
-                    <input type="text" placeholder="🔍 Buscar guía, manifiesto, casillero o cliente...">
-                    <button class="btn-primary">Buscar</button>
-                    <button class="btn-secondary">Limpiar</button>
+
+                        <input 
+                            type="text" 
+                            id="inputBusqueda" 
+                            placeholder="🔍 Buscar guía, manifiesto, casillero o cliente..."
+                        >
+
+                        <div id="filtroFechas" class="filtro-fechas">
+
+                            <div class="campo-fecha">
+                                <label for="fechaDesde">Desde</label>
+                                <input type="date" id="fechaDesde">
+                            </div>
+
+                            <div class="campo-fecha">
+                                <label for="fechaHasta">Hasta</label>
+                                <input type="date" id="fechaHasta">
+                            </div>
+
+                        </div>
+
+                        <button class="btn-primary" id="btnBuscar">
+                            Buscar
+                        </button>
+
+                        <button class="btn-secondary" id="btnLimpiar">
+                            Limpiar
+                        </button>
+
                     </div>
 
                     <br>
@@ -138,6 +164,8 @@
 
                                     <th>Guía</th>
 
+                                    <th>TRK</th>
+
                                     <th>Casillero</th>
 
                                     <th>Cliente</th>
@@ -150,43 +178,13 @@
 
                                     <th>Fecha</th>
 
-                                    <th></th>
-
                                 </tr>
 
                             </thead>
 
                             <tbody id="tablaHistorial">
 
-                                <tr>
-
-                                    <td>00185</td>
-
-                                    <td>784512365</td>
-
-                                    <td>BOX-125</td>
-
-                                    <td>Amazon</td>
-
-                                    <td>12 LB</td>
-
-                                    <td>Aéreo</td>
-
-                                    <td>MNF-00215</td>
-
-                                    <td>16/07/2026</td>
-
-                                    <td>
-
-                                        <button class="btn-view">
-
-                                            <i class="fa-solid fa-eye"></i>
-
-                                        </button>
-
-                                    </td>
-
-                                </tr>
+                                
 
                             </tbody>
 

@@ -506,33 +506,8 @@ tbody tr:hover{
 
 }
 
-.btn-view{
 
-    width:36px;
 
-    height:36px;
-
-    border:none;
-
-    border-radius:10px;
-
-    background:#eef4ff;
-
-    color:#27348b;
-
-    cursor:pointer;
-
-    transition:.2s;
-
-}
-
-.btn-view:hover{
-
-    background:#27348b;
-
-    color:white;
-
-}
 
 .empty-state{
 
@@ -564,4 +539,39 @@ tbody tr:hover{
 
     color:#6b7280;
 
+}
+
+/* ========================================
+   FILTRO POR FECHAS
+======================================== */
+
+.filtro-fechas {
+    display: none;
+    align-items: center;
+    gap: 12px;
+}
+
+.campo-fecha {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.campo-fecha label {
+    font-size: 12px;
+    color: #6b7280;
+    font-weight: 600;
+}
+
+.campo-fecha input {
+    padding: 10px 12px;
+    border: 1px solid #d8dce8;
+    border-radius: 8px;
+    font-size: 14px;
+    color: #374151;
+    outline: none;
+}
+
+.campo-fecha input:focus {
+    border-color: #27348b;
 }
