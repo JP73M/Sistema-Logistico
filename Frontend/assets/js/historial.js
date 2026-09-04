@@ -84,12 +84,29 @@ function cargarHistorial() {
 
 }
 
+// ========================================
+// LIMPIAR RESULTADOS INICIALES
+// ========================================
+
+function limpiarResultados() {
+
+    tbodyHistorial.innerHTML = `
+        <tr>
+            <td colspan="9" style="text-align:center;">
+                Realiza una búsqueda para consultar el historial.
+            </td>
+        </tr>
+    `;
+
+    actualizarContador(0);
+}
+
 
 // ========================================
 // INICIAR
 // ========================================
 
-cargarHistorial();
+limpiarResultados();
 
 // ========================================
 // FILTROS
@@ -184,6 +201,14 @@ botonesFiltro.forEach(boton => {
 const btnBuscar = document.querySelector("#btnBuscar");
 const btnLimpiar = document.querySelector("#btnLimpiar");
 
+inputBusqueda.addEventListener("keydown", (evento) => {
+
+    if (evento.key === "Enter") {
+        buscarHistorial();
+    }
+
+});
+
 
 // ========================================
 // BUSCAR
@@ -239,6 +264,8 @@ function buscarHistorial() {
 
             });
 
+            console.log("GUÍA:", guia.Guia, "MANIFIESTO:", guia.Manifiesto);
+
         });
 
     });
@@ -275,6 +302,8 @@ function buscarHistorial() {
 
                 return (
 
+                    item.lote.toString().toLowerCase().includes(texto) ||
+
                     item.guia.toLowerCase().includes(texto) ||
 
                     item.trk.toLowerCase().includes(texto) ||
@@ -283,9 +312,13 @@ function buscarHistorial() {
 
                     item.cliente.toLowerCase().includes(texto) ||
 
+                    item.peso.toLowerCase().includes(texto) ||
+
                     item.servicio.toLowerCase().includes(texto) ||
 
-                    item.manifiesto.toLowerCase().includes(texto)
+                    item.manifiesto.toLowerCase().includes(texto) ||
+
+                    item.fecha.toLowerCase().includes(texto)
 
                 );
 
@@ -416,14 +449,6 @@ function mostrarResultados(resultados) {
         `;
 
         tbodyHistorial.appendChild(fila);
-
-        const btnVer = fila.querySelector(".btn-ver-detalle");
-
-        btnVer.addEventListener("click", () => {
-
-            abrirDetalle(item);
-
-        });
 
     });
 

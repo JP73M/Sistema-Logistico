@@ -1,0 +1,261 @@
+/* ========================================
+   CONTENEDOR PRINCIPAL
+======================================== */
+
+.manifiestos-container {
+
+    padding: 25px;
+
+}
+
+
+/* ========================================
+   ENCABEZADO
+======================================== */
+
+.manifiestos-header {
+
+    background: white;
+
+    padding: 25px;
+
+    border-radius: 12px;
+
+    margin-bottom: 20px;
+
+}
+
+.manifiestos-header h2 {
+
+    margin: 0 0 6px;
+
+    color: #172554;
+
+}
+
+.manifiestos-header p {
+
+    margin: 0;
+
+    color: #64748b;
+
+}
+
+
+/* ========================================
+   LISTA DE MANIFIESTOS
+======================================== */
+
+.lista-manifiestos {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fill, minmax(300px, 1fr));
+
+    gap: 18px;
+
+}
+
+
+/* ========================================
+   TARJETA
+======================================== */
+
+.manifiesto-card {
+
+    background: white;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 14px;
+
+    padding: 20px;
+
+    cursor: pointer;
+
+    transition: all .2s ease;
+
+}
+
+.manifiesto-card:hover {
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, .08);
+
+}
+
+
+/* ========================================
+   PARTE SUPERIOR
+======================================== */
+
+.manifiesto-top {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 18px;
+
+}
+
+
+.manifiesto-identidad {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+}
+
+
+/* ICONO */
+
+.manifiesto-icon {
+
+    width: 46px;
+
+    height: 46px;
+
+    border-radius: 10px;
+
+    background: #6d3df5;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+}
+
+
+.manifiesto-icon img {
+
+    width: 25px;
+
+    height: 25px;
+
+}
+
+
+/* NUMERO */
+
+.manifiesto-numero {
+
+    font-size: 23px;
+
+    font-weight: 700;
+
+    color: #172554;
+
+}
+
+
+/* FLECHA */
+
+.manifiesto-flecha {
+
+    font-size: 26px;
+
+    color: #64748b;
+
+    transition: transform .2s ease;
+
+}
+
+.manifiesto-card:hover .manifiesto-flecha {
+
+    transform: translateX(4px);
+
+}
+
+
+/* ========================================
+   INFORMACIÓN
+======================================== */
+
+.manifiesto-info {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 10px;
+
+}
+
+
+.manifiesto-dato {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    color: #475569;
+
+    font-size: 14px;
+
+}
+
+
+.manifiesto-dato strong {
+
+    color: #172554;
+
+}
+
+
+/* ========================================
+   ORIGEN
+======================================== */
+
+.manifiesto-origen {
+
+    display: inline-block;
+
+    width: fit-content;
+
+    margin-top: 5px;
+
+    padding: 5px 10px;
+
+    border-radius: 20px;
+
+    background: #ede9fe;
+
+    color: #5b21b6;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+}
+
+
+/* ========================================
+   SIN MANIFIESTOS
+======================================== */
+
+.sin-manifiestos {
+
+    background: white;
+
+    padding: 45px;
+
+    border-radius: 12px;
+
+    text-align: center;
+
+    color: #64748b;
+
+}
