@@ -126,7 +126,7 @@
 
     border-radius: 10px;
 
-    background: #6d3df5;
+    background: #27348b;
 
     display: flex;
 
@@ -233,7 +233,7 @@
 
     background: #ede9fe;
 
-    color: #5b21b6;
+    color: #4563aC;
 
     font-size: 12px;
 
@@ -258,4 +258,135 @@
 
     color: #64748b;
 
+}
+
+/* ========================================
+   DETALLE DEL MANIFIESTO
+======================================== */
+
+.detalle-manifiesto {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+}
+
+
+/* BOTÓN VOLVER */
+
+.btn-volver-manifiestos {
+    border: none;
+    background: transparent;
+    color: #27348b;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+.btn-volver-manifiestos:hover {
+    text-decoration: underline;
+}
+
+
+/* ENCABEZADO */
+
+.detalle-header {
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+.detalle-header h2 {
+    margin: 0 0 12px;
+    color: #172554;
+    font-size: 25px;
+}
+
+.detalle-header p {
+    margin: 5px 0;
+    color: #64748b;
+    font-size: 14px;
+}
+
+
+/* RESUMEN */
+
+.detalle-resumen {
+    display: flex;
+    gap: 35px;
+    margin-top: 20px;
+}
+
+.detalle-resumen div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.detalle-resumen strong {
+    color: #172554;
+    font-size: 20px;
+}
+
+.detalle-resumen span {
+    color: #64748b;
+    font-size: 13px;
+}
+
+
+/* TABLA */
+
+.detalle-tabla {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.detalle-tabla table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.detalle-tabla thead {
+    background: #172554;
+    color: white;
+}
+
+.detalle-tabla th {
+    padding: 14px 12px;
+    text-align: left;
+    font-weight: 600;
+}
+
+.detalle-tabla td {
+    padding: 14px 12px;
+    border-bottom: 1px solid #e5e7eb;
+    color: #334155;
+}
+
+.detalle-tabla tbody tr:hover {
+    background: #f8fafc;
+}
+
+/* ========================================
+   BOTÓN DESCARGAR EXCEL
+======================================== */
+
+.btn-descargar-manifiesto {
+    margin-top: 20px;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 8px;
+    background: #27348b;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: .2s ease;
+}
+
+.btn-descargar-manifiesto:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 12px rgba(0, 0, 0, .12);
 }

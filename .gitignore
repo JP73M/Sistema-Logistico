@@ -30,4 +30,5 @@ Uploads/casilleros/*
 # Windows
 Thumbs.db
 Desktop.ini
+node_modules/
 out/
