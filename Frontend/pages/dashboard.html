@@ -331,16 +331,18 @@
 
                                 <div class="form-group">
 
-                                    <label>Numero de guia</label>
+                                    <label>Peso (LB)</label>
 
                                     <div class="input-scan">
 
                                         <input type="text"
-                                        id="manualGuia"
-                                        placeholder="Ej.123456789">
+                                        id="manualPeso"
+                                        placeholder="0">
+
+                                        <span>LB</span>
 
                                     </div>
-
+                                    
                                 </div>
 
                                 <div class="form-group">
@@ -371,21 +373,8 @@
                                     
                                 </div>
 
-                                <div class="form-group">
+                                                                
 
-                                    <label>Peso (LB)</label>
-
-                                    <div class="input-scan">
-
-                                        <input type="text"
-                                        id="manualPeso"
-                                        placeholder="0">
-
-                                        <span>LB</span>
-
-                                    </div>
-                                    
-                                </div>
 
                                 <div class="form-group">
 
@@ -448,31 +437,6 @@
 
 
                         <label>
-                            Número de guía
-                        </label>
-
-
-                        <div class="input-scan">
-
-
-                            <input 
-                            type="text"
-                            id="inputGuia"
-                            placeholder="Escanee o ingrese número de guía...">  
-
-
-                            <img src="../assets/img/icons/barcode.png">
-
-
-                        </div>
-
-
-                    </div>
-
-                    <div class="form-group">
-
-
-                        <label>
                             Peso (LB)
                         </label>
 
@@ -487,6 +451,33 @@
 
 
                             <span>LB</span>
+
+
+                        </div>
+
+
+                    </div>
+
+                    
+
+                    <div class="form-group">
+
+
+                        <label>
+                            Número de guía
+                        </label>
+
+
+                        <div class="input-scan">
+
+
+                            <input 
+                            type="text"
+                            id="inputGuia"
+                            placeholder="Escanee o ingrese número de guía...">  
+
+
+                            <img src="../assets/img/icons/barcode.png">
 
 
                         </div>
@@ -644,7 +635,12 @@
 
                         <img src="../assets/img/icons/Docs.png" alt="">
 
-                        <h3>Guías en lista</h3>
+
+                        <p id="counter">
+
+                            Mostrando 0 registros
+
+                        </p>
 
                     </div>
 
@@ -676,7 +672,9 @@
                             <th>TRK</th>
                             <th>Casillero</th>
                             <th>Nombre</th>
-                            <th>Peso</th>
+                            <th>Peso MIA</th>
+                            <th>Peso BOG</th>
+                            <th>Peso LIQ</th>
                             <th>Servicio</th>
                             <th>Manifiesto</th>
                             <th>Comentario</th>
@@ -698,7 +696,7 @@
 
                             <tr class="empty-row">
 
-                                <td colspan="10">
+                                <td colspan="12">
 
                                     No hay guías agregadas
 
@@ -713,15 +711,6 @@
 
 
                 </table>
-
-
-
-                <p id="counter">
-
-                    Mostrando 0 registros
-
-                </p>
-
 
 
             </section>

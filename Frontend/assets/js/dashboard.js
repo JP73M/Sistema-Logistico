@@ -170,6 +170,18 @@ inputPeso.addEventListener("input", ()=>{
 
 const inputGuia = document.querySelector("#inputGuia");
 
+inputPeso.addEventListener("keydown", (e) => {
+
+    if (e.key === "Enter") {
+
+        e.preventDefault();
+
+        inputGuia.focus();
+
+    }
+
+});
+
 
 const infoCasillero = document.querySelector("#infoCasillero");
 
@@ -218,17 +230,29 @@ inputGuia.addEventListener("input", ()=>{
 
         if(origen === "Misiil"){
 
-            let cliente = baseCasilleros.find(item =>
+            let casillero = String(resultado.casillero || "").trim();
 
-                item.casillero.replace("DILO","DL") ===
-                resultado.casillero.replace("DILO","DL")
+            if (casillero === "") {
 
-            );
+                // Si Misiil no tiene casillero,
+                // usar Usuario como nombre
+                nombreCliente =
+                    resultado.usuario || "No encontrado";
 
-            if(cliente){
+            } else {
 
-                nombreCliente = cliente.nombre;
+                let cliente = baseCasilleros.find(item =>
 
+                    item.casillero.replace("DILO","DL") ===
+                    casillero.replace("DILO","DL")
+
+                );
+
+                if(cliente){
+
+                    nombreCliente = cliente.nombre;
+
+                }
             }
 
             infoCasillero.textContent =
@@ -422,18 +446,28 @@ return;
 
 
 
-    let nombreCliente = "No encontrado";
-
     if (origen === "Misiil") {
 
-        let cliente = baseCasilleros.find(item =>
-            item.casillero.replace("DILO","DL") ===
-            datos.casillero.replace("DILO","DL")
-        );
+        let casillero = String(datos.casillero || "").trim();
 
-        nombreCliente = cliente
-            ? cliente.nombre
-            : "No encontrado";
+        if (casillero === "") {
+
+            // Si no tiene casillero,
+            // usar Usuario como nombre
+            nombreCliente =
+                datos.usuario || "No encontrado";
+
+        } else {
+
+            let cliente = baseCasilleros.find(item =>
+                item.casillero.replace("DILO","DL") ===
+                casillero.replace("DILO","DL")
+            );
+
+            nombreCliente = cliente
+                ? cliente.nombre
+                : "No encontrado";
+        }
 
     } else {
 
@@ -468,42 +502,90 @@ return;
         
     const fila = document.createElement("tr");
 
+    // =========================
+    // PESOS
+    // =========================
 
-        fila.innerHTML = `
+    let pesoMIA = parseFloat(
+        String(datos.pesoMIA || "").replace(",", ".")
+    );
 
+    let pesoBOG = parseFloat(
+        String(peso || "").replace(",", ".")
+    );
+
+    let pesoLIQ = 0;
+
+    // Si no existe peso MIA, usamos solamente BOG
+    if (isNaN(pesoMIA)) {
+        pesoMIA = 0;
+    }
+
+    // Si no existe peso BOG, usamos solamente MIA
+    if (isNaN(pesoBOG)) {
+        pesoBOG = 0;
+    }
+
+    // =========================
+    // CALCULAR PESO LIQ
+    // =========================
+
+    const usuarioGuia =
+        String(datos.usuario || "").trim().toLowerCase();
+
+    if (usuarioGuia.includes("willy")) {
+
+        // Willy Envíos:
+        // Peso LIQ = Peso BOG
+        pesoLIQ = pesoBOG;
+
+    } else {
+
+        // Demás usuarios:
+        // Peso LIQ = mayor entre MIA y BOG
+        pesoLIQ = Math.ceil(
+            Math.max(pesoMIA, pesoBOG)
+        );
+    }
+
+
+    // =========================
+    // CREAR FILA
+    // =========================
+
+    fila.innerHTML = `
         <td></td>
 
         <td>${datos.guia}</td>
 
         <td>${datos.trk || "---"}</td>
 
-        <td>${datos.casillero}</td>
+        <td>${datos.casillero || "---"}</td>
 
         <td>${nombreCliente}</td>
 
-        <td>${peso} LB</td>
+        <td>${pesoMIA > 0 ? pesoMIA + " LB" : "---"}</td>
 
-        <td>${datos.servicio}</td>
+        <td>${pesoBOG > 0 ? pesoBOG + " LB" : "---"}</td>
+
+        <td>${pesoLIQ > 0 ? pesoLIQ + " LB" : "---"}</td>
+
+        <td>${datos.servicio || "---"}</td>
 
         <td>${numeroManifiesto}</td>
 
         <td>${comentario}</td>
 
         <td>
-
             <button class="delete-btn">
-
-                 <img src="../assets/img/icons/transh.png" alt="Eliminar">
-
+                <img src="../assets/img/icons/transh.png" alt="Eliminar">
             </button>
-
         </td>
-
     `;
 
 
 
-        tbody.appendChild(fila);
+        tbody.prepend(fila);
 
 
         limpiarCampos();
@@ -590,7 +672,7 @@ function actualizarCards(){
     filas.forEach(fila=>{
 
 
-        let valorPeso = fila.children[5].textContent;
+        let valorPeso = fila.children[7].textContent;
 
 
         peso += parseFloat(valorPeso);
@@ -702,29 +784,37 @@ excelManifiestoMisiil.addEventListener("change",(e)=>{
             datosExcel.forEach(item=>{
 
                 baseGuias.push({
-
                     guia:
-                    String(item.Guia || "").trim(),
+                        String(item.Guia || "").trim(),
 
                     trk:
-                    String(
-                        item["Numero De Rastreo"] || ""
-                    ).trim(),
+                        String(
+                            item["Numero De Rastreo"] || ""
+                        ).trim(),
 
                     casillero:
-                    String(
-                        item.Casillero || ""
-                    ).trim(),
+                        String(
+                            item.Casillero || ""
+                        ).trim(),
 
                     servicio:
-                    String(
-                        item.Servicio || ""
-                    ).trim(),
+                        String(
+                            item.Servicio || ""
+                        ).trim(),
+
+                    pesoMIA:
+                        String(
+                            item.Peso || ""
+                        ).trim(),
+
+                    usuario:
+                        String(
+                            item.Usuario || ""
+                        ).trim(),
 
                     archivoIndex:index,
 
                     origen:"Misiil"
-
                 });
 
             });
@@ -838,29 +928,32 @@ excelManifiestoControl.addEventListener("change",(e)=>{
             datosExcel.forEach(item=>{
 
                 baseGuiasControl.push({
-
                     guia:
-                    String(item["Guia#"] || "").trim(),
+                        String(item["Guia#"] || "").trim(),
 
                     trk:
-                    String(
-                        item["TRACKING"] || ""
-                    ).trim(),
+                        String(
+                            item["TRACKING"] || ""
+                        ).trim(),
 
                     nombreRemitente:
-                    String(
-                        item["Nombre del Remitente"] || ""
-                    ).trim(),
+                        String(
+                            item["Nombre del Remitente"] || ""
+                        ).trim(),
 
                     servicio:
-                    String(
-                        item["Servicio"] || ""
-                    ).trim(),
+                        String(
+                            item["Servicio"] || ""
+                        ).trim(),
+
+                    pesoMIA:
+                        String(
+                            item.Peso || ""
+                        ).trim(),
 
                     archivoIndex:index,
 
                     origen:"ControlBox"
-
                 });
 
             });
@@ -1014,17 +1107,23 @@ function obtenerDatosLote(){
             Cliente:
                 fila.children[4].textContent,
 
-            Peso:
+            PesoMIA:
                 fila.children[5].textContent,
 
-            Servicio:
+            PesoBOG:
                 fila.children[6].textContent,
 
-            Manifiesto:
+            PesoLIQ:
                 fila.children[7].textContent,
 
+            Servicio:
+                fila.children[8].textContent,
+
+            Manifiesto:
+                fila.children[9].textContent,
+
             Comentario:
-                fila.children[8].textContent
+                fila.children[10].textContent
 
         });
 
