@@ -39,7 +39,7 @@
            </div>
 
             <span class="span">
-                Versión 1.0.0
+                Versión 1.2.1
             </span>
 
         </aside>
@@ -432,6 +432,165 @@
 
                     </div>
 
+                    <div id="editPanel" class="scanner-overlay">
+
+                        <div class="manual-card">
+
+                            <div class="manual-header">
+
+                                <h3>✏️ Editar guía</h3>
+
+                                <button
+                                    id="btnCerrarEdit"
+                                    class="close-manual">
+                                    ✕
+                                </button>
+
+                            </div>
+
+                            <p class="manual-description">
+                                Modifique la información de la guía
+                            </p>
+
+                            <div class="manual-form">
+
+                                <div class="form-group">
+                                    <label>Número de guía</label>
+
+                                    <div class="input-scan">
+                                        <input
+                                            type="text"
+                                            id="editGuia">
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label>TRK</label>
+
+                                    <div class="input-scan">
+                                        <input
+                                            type="text"
+                                            id="editTrk">
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label>Casillero</label>
+
+                                    <div class="input-scan">
+                                        <input
+                                            type="text"
+                                            id="editCasillero">
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label>Nombre</label>
+
+                                    <div class="input-scan">
+                                        <input
+                                            type="text"
+                                            id="editNombre">
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label>Peso MIA (LB)</label>
+
+                                    <div class="input-scan">
+                                        <input
+                                            type="number"
+                                            step="any"
+                                            id="editPesoMIA">
+                                        <span>LB</span>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label>Peso BOG (LB)</label>
+
+                                    <div class="input-scan">
+                                        <input
+                                            type="number"
+                                            step="any"
+                                            id="editPesoBOG">
+                                        <span>LB</span>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label>Peso LIQ (LB)</label>
+
+                                    <div class="input-scan">
+                                        <input
+                                            type="number"
+                                            id="editPesoLIQ"
+                                            readonly>
+                                        <span>LB</span>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label>Servicio</label>
+
+                                    <div class="input-scan">
+                                        <input
+                                            type="text"
+                                            id="editServicio">
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <label>Manifiesto</label>
+
+                                    <div class="input-scan">
+                                        <input
+                                            type="text"
+                                            id="editManifiesto">
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+
+                                    <label>Comentario</label>
+
+                                    <div class="coment-scan">
+
+                                        <textarea
+                                            id="editComentario"
+                                            placeholder="Comentario (Opcional)">
+                                        </textarea>
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="manual-buttons">
+
+                                    <button
+                                        id="btnGuardarEdit"
+                                        class="btn-add">
+                                        Guardar cambios
+                                    </button>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
 
                     <div class="form-group">
 
@@ -592,7 +751,11 @@
 
                     <div class="info-data">
 
-
+                        <div>
+                            <strong>Guia:</strong>
+                            <span id="infoGuia">---</span>
+                        </div>
+                        
                         <div>
                             <strong>Casillero:</strong>
                             <span id="infoCasillero">---</span>

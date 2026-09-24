@@ -1706,5 +1706,73 @@ tbody tr:hover{
 
 }
 
+.edit-btn,
+.delete-btn {
+    width: 36px;
+    height: 36px;
+    padding: 8px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+}
 
+.edit-btn {
+    background: #fff3e8;
+    margin-right: 5px;
+}
 
+.edit-btn img {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+}
+
+.delete-btn {
+    background: #ffe1e1;
+}
+
+.delete-btn img {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+}
+
+.action-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.action-buttons .edit-btn,
+.action-buttons .delete-btn {
+    width: 36px;
+    height: 36px;
+    padding: 8px;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.action-buttons .edit-btn img,
+.action-buttons .delete-btn img {
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+}
+
+.action-buttons .edit-btn {
+    background: #fff3e8;
+}
+
+.action-buttons .delete-btn {
+    background: #ffe1e1;
+}

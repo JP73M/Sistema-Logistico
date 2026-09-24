@@ -185,6 +185,8 @@ inputPeso.addEventListener("keydown", (e) => {
 
 const infoCasillero = document.querySelector("#infoCasillero");
 
+const infoGuia = document.querySelector("#infoGuia");
+
 const infoNombre = document.querySelector("#infoNombre");
 
 const infoServicio = document.querySelector("#infoServicio");
@@ -223,6 +225,8 @@ inputGuia.addEventListener("input", ()=>{
 
         let nombreCliente = "No encontrado";
         let numeroManifiesto = "---";
+
+        infoGuia.textContent = resultado.guia || "---";
 
         // =========================
         // MISIIL
@@ -577,9 +581,17 @@ return;
         <td>${comentario}</td>
 
         <td>
-            <button class="delete-btn">
-                <img src="../assets/img/icons/transh.png" alt="Eliminar">
-            </button>
+            <div class="action-buttons">
+
+                <button class="edit-btn" title="Editar">
+                    <img src="../assets/img/icons/edit.png" alt="Editar">
+                </button>
+
+                <button class="delete-btn" title="Eliminar">
+                    <img src="../assets/img/icons/transh.png" alt="Eliminar">
+                </button>
+
+            </div>
         </td>
     `;
 
@@ -630,29 +642,202 @@ function limpiarLote(){
 
 }
 
+const editPanel = document.querySelector("#editPanel");
 
-tbody.addEventListener("click", (e)=>{
+const btnCerrarEdit =
+    document.querySelector("#btnCerrarEdit");
+
+const btnGuardarEdit =
+    document.querySelector("#btnGuardarEdit");
+
+const editGuia =
+    document.querySelector("#editGuia");
+
+const editTrk =
+    document.querySelector("#editTrk");
+
+const editCasillero =
+    document.querySelector("#editCasillero");
+
+const editNombre =
+    document.querySelector("#editNombre");
+
+const editPesoMIA =
+    document.querySelector("#editPesoMIA");
+
+const editPesoBOG =
+    document.querySelector("#editPesoBOG");
+
+const editPesoLIQ =
+    document.querySelector("#editPesoLIQ");
+
+const editServicio =
+    document.querySelector("#editServicio");
+
+const editManifiesto =
+    document.querySelector("#editManifiesto");
+
+const editComentario =
+    document.querySelector("#editComentario");
+
+let filaEditando = null;
+
+tbody.addEventListener("click", (e) => {
+
+    // =========================
+    // EDITAR
+    // =========================
+
+    const botonEditar =
+        e.target.closest(".edit-btn");
+
+    if (botonEditar) {
+
+        filaEditando =
+            botonEditar.closest("tr");
+
+        editGuia.value =
+            filaEditando.children[1].textContent;
+
+        editTrk.value =
+            filaEditando.children[2].textContent;
+
+        editCasillero.value =
+            filaEditando.children[3].textContent === "---"
+            ? ""
+            : filaEditando.children[3].textContent;
+
+        editNombre.value =
+            filaEditando.children[4].textContent;
+
+        editPesoMIA.value =
+            filaEditando.children[5].textContent
+            .replace("LB", "")
+            .trim();
+
+        editPesoBOG.value =
+            filaEditando.children[6].textContent
+            .replace("LB", "")
+            .trim();
+
+        editPesoLIQ.value =
+            filaEditando.children[7].textContent
+            .replace("LB", "")
+            .trim();
+
+        editServicio.value =
+            filaEditando.children[8].textContent;
+
+        editManifiesto.value =
+            filaEditando.children[9].textContent;
+
+        editComentario.value =
+            filaEditando.children[10].textContent;
+
+        editPanel.classList.add("active");
+
+        editGuia.focus();
+
+        return;
+    }
 
 
-    const botonEliminar = e.target.closest(".delete-btn");
+    // =========================
+    // ELIMINAR
+    // =========================
 
+    const botonEliminar =
+        e.target.closest(".delete-btn");
 
-    if(botonEliminar){
+    if (botonEliminar) {
 
-
-        const fila = botonEliminar.closest("tr");
-
+        const fila =
+            botonEliminar.closest("tr");
 
         fila.remove();
 
-
         actualizarTabla();
-
         actualizarCards();
-
 
     }
 
+});
+
+btnCerrarEdit.addEventListener("click", () => {
+
+    editPanel.classList.remove("active");
+
+    filaEditando = null;
+
+});
+
+document.addEventListener("keydown", (e) => {
+
+    if (
+        e.key === "Escape" &&
+        editPanel.classList.contains("active")
+    ) {
+
+        editPanel.classList.remove("active");
+
+        filaEditando = null;
+
+    }
+
+});
+
+btnGuardarEdit.addEventListener("click", () => {
+
+    if (!filaEditando) {
+        return;
+    }
+
+    calcularPesoLIQEditado();
+
+
+    filaEditando.children[1].textContent =
+        editGuia.value.trim();
+
+    filaEditando.children[2].textContent =
+        editTrk.value.trim() || "---";
+
+    filaEditando.children[3].textContent =
+        editCasillero.value.trim() || "---";
+
+    filaEditando.children[4].textContent =
+        editNombre.value.trim() || "No encontrado";
+
+    filaEditando.children[5].textContent =
+        editPesoMIA.value.trim()
+        ? `${editPesoMIA.value.trim()} LB`
+        : "---";
+
+    filaEditando.children[6].textContent =
+        editPesoBOG.value.trim()
+        ? `${editPesoBOG.value.trim()} LB`
+        : "---";
+
+    filaEditando.children[7].textContent =
+        editPesoLIQ.value.trim()
+        ? `${editPesoLIQ.value.trim()} LB`
+        : "---";
+
+    filaEditando.children[8].textContent =
+        editServicio.value.trim() || "---";
+
+    filaEditando.children[9].textContent =
+        editManifiesto.value.trim() || "---";
+
+    filaEditando.children[10].textContent =
+        editComentario.value.trim();
+
+
+    actualizarTabla();
+    actualizarCards();
+
+    editPanel.classList.remove("active");
+
+    filaEditando = null;
 
 });
 
@@ -1053,33 +1238,36 @@ excelCasilleros.addEventListener("change",(e)=>{
 
     let procesandoScan = false;
 
-    inputGuia.addEventListener("keydown",(e)=>{
+    inputGuia.addEventListener("keydown", (e) => {
 
-        if(e.key === "Enter"){
-
-            e.preventDefault();
-
-            if(procesandoScan){
-                return;
-            }
-
-            procesandoScan = true
-
-            setTimeout(()=>{
-
-                if(inputGuia.value.trim() !== ""){
-                    
-                    btnAgregar.click();
-
-                }
-
-                procesandoScan = false;
-            }, 200);
+        if (e.key !== "Enter") {
+            return;
         }
-    }
+
+        e.preventDefault();
+
+        if (procesandoScan) {
+            return;
+        }
+
+        const guia = inputGuia.value.trim();
+
+        if (guia === "") {
+            return;
+        }
+
+        procesandoScan = true;
+
+        btnAgregar.click();
+
+        setTimeout(() => {
+            procesandoScan = false;
+        }, 300);
+
+    });
     
     
-    );
+    
 
 
 });
@@ -1178,6 +1366,136 @@ function exportarExcel(guias){
 
 }
 
+function validarCantidadGuiasManifiestos(guias) {
+
+    const esperadas = {};
+    const escaneadas = {};
+
+    // =========================
+    // CONTAR GUÍAS MISIIL
+    // =========================
+
+    baseGuias.forEach(item => {
+
+        if (!item.guia) return;
+
+        const inputManifiesto =
+            document.querySelector(
+                `.numeroManifiesto[data-index="${item.archivoIndex}"]`
+            );
+
+        if (!inputManifiesto) return;
+
+        const manifiesto =
+            inputManifiesto.value.trim();
+
+        if (!manifiesto) return;
+
+        if (!esperadas[manifiesto]) {
+            esperadas[manifiesto] = 0;
+        }
+
+        esperadas[manifiesto]++;
+    });
+
+
+    // =========================
+    // CONTAR GUÍAS CONTROLBOX
+    // =========================
+
+    baseGuiasControl.forEach(item => {
+
+        if (!item.guia) return;
+
+        const inputManifiesto =
+            document.querySelector(
+                `.numeroManifiestoControl[data-index="${item.archivoIndex}"]`
+            );
+
+        if (!inputManifiesto) return;
+
+        const manifiesto =
+            inputManifiesto.value.trim();
+
+        if (!manifiesto) return;
+
+        if (!esperadas[manifiesto]) {
+            esperadas[manifiesto] = 0;
+        }
+
+        esperadas[manifiesto]++;
+    });
+
+
+    // =========================
+    // CONTAR GUÍAS ESCANEADAS
+    // =========================
+
+    guias.forEach(guia => {
+
+        const manifiesto =
+            String(guia.Manifiesto || "").trim();
+
+        if (!manifiesto) return;
+
+        if (!escaneadas[manifiesto]) {
+            escaneadas[manifiesto] = 0;
+        }
+
+        escaneadas[manifiesto]++;
+    });
+
+
+    // =========================
+    // COMPARAR
+    // =========================
+
+    const diferencias = [];
+
+    Object.keys(esperadas).forEach(manifiesto => {
+
+        const cantidadEsperada =
+            esperadas[manifiesto];
+
+        const cantidadEscaneada =
+            escaneadas[manifiesto] || 0;
+
+        if (cantidadEsperada !== cantidadEscaneada) {
+
+            diferencias.push({
+                manifiesto: manifiesto,
+                esperadas: cantidadEsperada,
+                escaneadas: cantidadEscaneada
+            });
+
+        }
+
+    });
+
+
+    // =========================
+    // VERIFICAR MANIFIESTOS
+    // QUE NO TENGAN GUÍAS ESPERADAS
+    // =========================
+
+    Object.keys(escaneadas).forEach(manifiesto => {
+
+        if (!esperadas[manifiesto]) {
+
+            diferencias.push({
+                manifiesto: manifiesto,
+                esperadas: 0,
+                escaneadas: escaneadas[manifiesto]
+            });
+
+        }
+
+    });
+
+
+    return diferencias;
+}
+
 btnCerrarLote.addEventListener("click",()=>{
 
 
@@ -1203,6 +1521,44 @@ btnCerrarLote.addEventListener("click",()=>{
 
     }
 
+    // =========================
+    // VALIDAR CANTIDAD DE GUÍAS
+    // =========================
+
+    const diferencias =
+        validarCantidadGuiasManifiestos(guias);
+
+    if (diferencias.length > 0) {
+
+        const totalEsperadas =
+            diferencias.reduce(
+                (total, diferencia) =>
+                    total + diferencia.esperadas,
+                0
+            );
+
+        const totalEscaneadas =
+            diferencias.reduce(
+                (total, diferencia) =>
+                    total + diferencia.escaneadas,
+                0
+            );
+
+        const faltantes =
+            totalEsperadas - totalEscaneadas;
+
+        const mensaje =
+            `Se encontraron ${totalEsperadas} guías en los manifiestos, ` +
+            `pero solo has escaneado ${totalEscaneadas} guías. ` +
+            `Faltan ${faltantes} guías para poder finalizar el lote.`;
+
+        DiloUI.modal.error(
+            "Lote incompleto",
+            mensaje
+        );
+
+        return;
+    }
 
 
     let lote = {
@@ -1275,6 +1631,59 @@ btnCerrarLote.addEventListener("click",()=>{
 });
 
 const btnManual = document.querySelector("#btnManual");
+
+
+
+function calcularPesoLIQEditado() {
+
+    const pesoMIA =
+        parseFloat(
+            String(editPesoMIA.value || "")
+            .replace(",", ".")
+        ) || 0;
+
+    const pesoBOG =
+        parseFloat(
+            String(editPesoBOG.value || "")
+            .replace(",", ".")
+        ) || 0;
+
+    const usuario =
+        String(editNombre.value || "")
+        .trim()
+        .toLowerCase();
+
+    if (usuario.includes("willy")) {
+
+        editPesoLIQ.value = pesoBOG;
+
+    } else {
+
+        editPesoLIQ.value =
+            Math.ceil(
+                Math.max(pesoMIA, pesoBOG)
+            );
+    }
+}
+
+// AQUÍ VA EL BLOQUE QUE PREGUNTASTE
+
+editPesoMIA.addEventListener(
+    "input",
+    calcularPesoLIQEditado
+);
+
+editPesoBOG.addEventListener(
+    "input",
+    calcularPesoLIQEditado
+);
+
+editNombre.addEventListener(
+    "input",
+    calcularPesoLIQEditado
+);
+
+
 
 const manualPanel = document.querySelector("#manualPanel");
 
