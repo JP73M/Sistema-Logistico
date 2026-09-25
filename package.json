@@ -1,6 +1,6 @@
 {
   "name": "DiloScan",
-  "version": "1.0.0",
+  "version": "1.2.1",
   "description": "Sistema de control operativo para gestión de guías, manifiestos, casilleros y pesaje.",
   "author": "DiloScan",
   "main": "main.js",
