@@ -1,0 +1,329 @@
+/* =========================
+   DILOSCAN - PANTALLA TV
+   ========================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f4f6fa;
+    color: #111827;
+    min-height: 100vh;
+}
+
+/* =========================
+   HEADER
+   ========================= */
+
+header {
+    height: 92px;
+    background: #27348b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+header h1 {
+    color: white;
+    font-size: 42px;
+    font-weight: 700;
+}
+
+/* =========================
+   CONTENEDOR PRINCIPAL
+   ========================= */
+
+.tv-container {
+    width: 100%;
+    padding: 35px;
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 20px;
+    align-items: stretch;
+}
+
+/* =========================
+   TARJETAS
+   ========================= */
+
+.tv-card {
+    background: white;
+    border-radius: 18px;
+    padding: 28px;
+    min-height: 400px;
+    height: 100%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+}
+
+/* =========================
+   TITULOS DE TARJETA
+   ========================= */
+
+.tv-card-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 40px;
+    color: #111827;
+}
+
+.tv-card-title::before {
+    content: "";
+    width: 4px;
+    height: 26px;
+    background: #27348b;
+    border-radius: 5px;
+}
+
+.tv-card:first-child {
+    display: flex;
+    flex-direction: column;
+}
+
+/* =========================
+   PESO
+   ========================= */
+
+.peso-tv {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.titulo-peso {
+    display: none;
+}
+
+.valor-peso {
+    background: #f7f8fb;
+    border: 1px solid #e1e5ec;
+    border-radius: 15px;
+    min-height: 180px;
+
+    flex: 1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #111827;
+    font-size: 105px;
+    font-weight: 700;
+}
+
+.unidad-peso {
+    font-size: 48px;
+    margin-left: 15px;
+}
+
+/* =========================
+   GUIA
+   ========================= */
+
+.guia-tv {
+    display: block;
+}
+
+.titulo-guia {
+    display: none;
+}
+
+.valor-guia {
+    background: #f7f8fb;
+    border: 1px solid #e1e5ec;
+    border-radius: 15px;
+    min-height: 100px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #27348b;
+    font-size: 55px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+/* =========================
+   INFORMACIÓN
+   ========================= */
+
+.info-tv {
+    margin-top: 25px;
+}
+
+.info-fila {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 18px 0;
+    border-bottom: 1px solid #e5e7eb;
+
+    font-size: 22px;
+}
+
+.info-fila:last-child {
+    border-bottom: none;
+}
+
+.info-label {
+    font-weight: 700;
+    color: #111827;
+}
+
+.info-valor {
+    background: #eef3ff;
+    color: #27348b;
+
+    padding: 8px 18px;
+    border-radius: 20px;
+
+    font-weight: 700;
+}
+
+/* =========================
+   ESPERA
+   ========================= */
+
+.waiting {
+    position: absolute;
+    inset: 92px 0 0 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+}
+
+.waiting h2 {
+    font-size: 42px;
+    color: #27348b;
+    margin-bottom: 15px;
+}
+
+.waiting p {
+    font-size: 22px;
+    color: #64748b;
+}
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+
+@media (max-width: 900px) {
+    .tv-container {
+        grid-template-columns: 1fr;
+    }
+
+    .valor-peso {
+        font-size: 80px;
+    }
+
+    .valor-guia {
+        font-size: 45px;
+    }
+}
+
+/* =========================
+   LISTA ÚLTIMAS GUÍAS
+   ========================= */
+
+.tv-list-card {
+    width: calc(100% - 70px);
+    margin: 0 35px 35px 35px;
+
+    background: white;
+    border-radius: 18px;
+    padding: 28px;
+
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+}
+
+.tv-list-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    font-size: 24px;
+    font-weight: 700;
+
+    color: #111827;
+
+    margin-bottom: 22px;
+}
+
+.tv-list-title::before {
+    content: "";
+
+    width: 4px;
+    height: 28px;
+
+    background: #27348b;
+    border-radius: 5px;
+}
+
+
+/* =========================
+   TABLA TV
+   ========================= */
+
+.tv-table-container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.tv-table {
+    width: 100%;
+    border-collapse: collapse;
+
+    table-layout: auto;
+}
+
+.tv-table thead {
+    background: #111827;
+    color: white;
+}
+
+.tv-table th {
+    padding: 16px 14px;
+
+    font-size: 18px;
+    font-weight: 700;
+
+    text-align: left;
+
+    white-space: nowrap;
+}
+
+.tv-table td {
+    padding: 18px 14px;
+
+    font-size: 18px;
+    color: #111827;
+
+    border-bottom: 1px solid #e5e7eb;
+
+    white-space: nowrap;
+}
+
+.tv-table tbody tr:first-child {
+    background: #f7f9ff;
+}
+
+.tv-table tbody tr:first-child td {
+    font-weight: 700;
+    color: #27348b;
+}
+
+.tv-table tbody tr:last-child td {
+    border-bottom: none;
+}

@@ -1776,3 +1776,39 @@ tbody tr:hover{
 .action-buttons .delete-btn {
     background: #ffe1e1;
 }
+
+
+.btn-tv {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.tv-icon {
+    position: relative;
+    width: 18px;
+    height: 18px;
+    display: block;
+}
+
+.tv-icon img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 18px;
+    height: 18px;
+    object-fit: contain;
+}
+
+.tv-icon img:nth-child(2) {
+    display: none;
+}
+
+.btn-tv:hover .tv-icon img:nth-child(1) {
+    display: none;
+}
+
+.btn-tv:hover .tv-icon img:nth-child(2) {
+    display: block;
+}

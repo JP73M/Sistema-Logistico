@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>DiloScan - Pantalla TV</title>
+    <link rel="stylesheet" href="../assets/css/tv.css">
+</head>
+
+<body>
+
+    <!-- ENCABEZADO -->
+    <header>
+        <h1>DiloScan</h1>
+    </header>
+
+
+
+
+    <!-- CONTENIDO PRINCIPAL TV -->
+    <main class="tv-container">
+
+        <!-- =========================
+             TARJETA IZQUIERDA
+             ========================= -->
+        <section class="tv-card">
+
+            <div class="tv-card-title">
+                Peso actual
+            </div>
+
+            <!-- GUÍA -->
+            <div class="guia-tv" id="pantallaGuia">
+
+                <div class="titulo-guia">
+                    GUÍA
+                </div>
+
+                <div class="valor-guia" id="guiaTV">
+                    ---
+                </div>
+
+            </div>
+
+
+            <!-- PESO -->
+            <div class="peso-tv" id="pantallaPeso">
+
+                <div class="titulo-peso">
+                    PESO
+                </div>
+
+                <div class="valor-peso">
+
+                    <span id="pesoTV">
+                        0
+                    </span>
+
+                    <span class="unidad-peso">
+                        LB
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             TARJETA DERECHA
+             ========================= -->
+        <section class="tv-card">
+
+            <div class="tv-card-title">
+                Información encontrada
+            </div>
+
+            <div class="info-tv">
+
+                <div class="info-fila">
+                    <span class="info-label">
+                        Guía:
+                    </span>
+
+                    <span class="info-valor" id="infoGuia">
+                        ---
+                    </span>
+                </div>
+
+
+                <div class="info-fila">
+                    <span class="info-label">
+                        Casillero:
+                    </span>
+
+                    <span class="info-valor" id="infoCasilleroTV">
+                        ---
+                    </span>
+                </div>
+
+
+                <div class="info-fila">
+                    <span class="info-label">
+                        Nombre:
+                    </span>
+
+                    <span class="info-valor" id="infoNombreTV">
+                        ---
+                    </span>
+                </div>
+
+
+                <div class="info-fila">
+                    <span class="info-label">
+                        Servicio:
+                    </span>
+
+                    <span class="info-valor" id="infoServicioTV">
+                        ---
+                    </span>
+                </div>
+
+
+                <div class="info-fila">
+                    <span class="info-label">
+                        Manifiesto:
+                    </span>
+
+                    <span class="info-valor" id="infoManifiestoTV">
+                        ---
+                    </span>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- =========================
+     LISTA ÚLTIMAS GUÍAS
+     ========================= -->
+
+    <section class="tv-list-card">
+
+        <div class="tv-list-title">
+            Lista
+        </div>
+
+        <div class="tv-table-container">
+
+            <table class="tv-table">
+
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Guía</th>
+                        <th>TRK</th>
+                        <th>Casillero</th>
+                        <th>Nombre</th>
+                        <th>Peso MIA</th>
+                        <th>Peso BOG</th>
+                        <th>Peso LIQ</th>
+                        <th>Servicio</th>
+                        <th>Manifiesto</th>
+                    </tr>
+                </thead>
+
+                <tbody id="listaTVBody">
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+    <script>
+
+        const canalTV = new BroadcastChannel("diloscan-tv");
+
+        const pantallaEspera =
+            document.querySelector("#pantallaEspera");
+
+        const pantallaGuia =
+            document.querySelector("#pantallaGuia");
+
+        const pantallaPeso =
+            document.querySelector("#pantallaPeso");
+
+        const guiaTV =
+            document.querySelector("#guiaTV");
+
+        const pesoTV =
+            document.querySelector("#pesoTV");
+
+        const infoGuia =
+            document.querySelector("#infoGuia");
+
+        const infoCasilleroTV =
+            document.querySelector("#infoCasilleroTV");
+
+        const infoNombreTV =
+            document.querySelector("#infoNombreTV");
+
+        const infoServicioTV =
+            document.querySelector("#infoServicioTV");
+
+        const infoManifiestoTV =
+            document.querySelector("#infoManifiestoTV");
+
+        const listaTVBody =
+            document.querySelector("#listaTVBody");
+
+
+        canalTV.onmessage = (event) => {
+
+            const datos = event.data;
+
+            if (datos.tipo === "lista") {
+
+                listaTVBody.innerHTML = "";
+
+                datos.guias.forEach((guia) => {
+
+                    const fila = document.createElement("tr");
+
+                    fila.innerHTML = `
+
+                        <td>${guia.numero}</td>
+
+                        <td>${guia.guia}</td>
+
+                        <td>${guia.trk}</td>
+
+                        <td>${guia.casillero}</td>
+
+                        <td>${guia.nombre}</td>
+
+                        <td>${guia.pesoMIA}</td>
+
+                        <td>${guia.pesoBOG}</td>
+
+                        <td>${guia.pesoLIQ}</td>
+
+                        <td>${guia.servicio}</td>
+
+                        <td>${guia.manifiesto}</td>
+
+                    `;
+
+                    listaTVBody.appendChild(fila);
+
+                });
+
+            }
+
+
+            /* =========================
+               GUÍA
+               ========================= */
+
+            if (datos.tipo === "guia") {
+
+                guiaTV.textContent = datos.guia;
+
+                infoGuia.textContent = datos.guia;
+
+                pantallaGuia.style.display = "block";
+
+                pantallaPeso.style.display = "block";
+            }
+
+            /* ==============================
+                INFORMACION
+                =============================*/
+
+            if (datos.tipo === "informacion") {
+
+                infoGuia.textContent =
+                    datos.guia;
+
+                infoCasilleroTV.textContent =
+                    datos.casillero;
+
+                infoNombreTV.textContent =
+                    datos.nombre;
+
+                infoServicioTV.textContent =
+                    datos.servicio;
+
+                infoManifiestoTV.textContent =
+                    datos.manifiesto;
+
+
+
+                pantallaGuia.style.display = "block";
+
+                pantallaPeso.style.display = "block";
+            }
+
+
+            /* =========================
+               PESO
+               ========================= */
+
+            if (datos.tipo === "peso") {
+
+                pesoTV.textContent = datos.peso;
+
+
+
+                pantallaGuia.style.display = "block";
+
+                pantallaPeso.style.display = "block";
+            }
+
+        };
+
+    </script>
+
+</body>
+</html>

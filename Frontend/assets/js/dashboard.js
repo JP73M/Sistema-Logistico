@@ -149,28 +149,98 @@ function validarManifiestos(){
 
 const inputPeso = document.querySelector("#inputPeso");
 
+const canalTV = new BroadcastChannel("diloscan-tv");
+
+function enviarUltimasGuiasTV() {
+
+    const filas =
+        tbody.querySelectorAll("tr:not(.empty-row)");
+
+    const ultimasGuias = [];
+
+    filas.forEach((fila, index) => {
+
+        if (index >= 3) {
+            return;
+        }
+
+        ultimasGuias.push({
+
+            numero: index + 1,
+
+            guia:
+                fila.children[1].textContent,
+
+            trk:
+                fila.children[2].textContent,
+
+            casillero:
+                fila.children[3].textContent,
+
+            nombre:
+                fila.children[4].textContent,
+
+            pesoMIA:
+                fila.children[5].textContent,
+
+            pesoBOG:
+                fila.children[6].textContent,
+
+            pesoLIQ:
+                fila.children[7].textContent,
+
+            servicio:
+                fila.children[8].textContent,
+
+            manifiesto:
+                fila.children[9].textContent
+
+        });
+
+    });
+
+
+    canalTV.postMessage({
+
+        tipo: "lista",
+
+        guias: ultimasGuias
+
+    });
+
+}
+
 const pesoActual = document.querySelector("#pesoActual");
 
 
 inputPeso.addEventListener("input", ()=>{
 
-
     if(inputPeso.value === ""){
 
         pesoActual.textContent = "0";
+
+        canalTV.postMessage({
+            tipo: "peso",
+            peso: "0"
+        });
 
     }else{
 
         pesoActual.textContent = inputPeso.value;
 
-    }
+        canalTV.postMessage({
+            tipo: "peso",
+            peso: inputPeso.value
+        });
 
+    }
 
 });
 
 const inputGuia = document.querySelector("#inputGuia");
 
 inputPeso.addEventListener("keydown", (e) => {
+    
 
     if (e.key === "Enter") {
 
@@ -199,6 +269,11 @@ const inputManifiesto = document.querySelector("#inputManifiesto");
 
 
 inputGuia.addEventListener("input", ()=>{
+
+    canalTV.postMessage({
+        tipo: "guia",
+        guia: inputGuia.value
+    });
 
     const guiaBuscada = inputGuia.value.trim();
 
@@ -305,6 +380,19 @@ inputGuia.addEventListener("input", ()=>{
         infoManifiesto.textContent =
             numeroManifiesto;
 
+
+        // =========================
+        // ENVIAR INFORMACIÓN AL TV
+        // =========================
+        canalTV.postMessage({
+            tipo: "informacion",
+            guia: resultado.guia || "---",
+            casillero: resultado.casillero || "---",
+            nombre: nombreCliente || "---",
+            servicio: resultado.servicio || "---",
+            manifiesto: numeroManifiesto || "---"
+        });
+
     }
 
 
@@ -327,8 +415,9 @@ btnAgregar.addEventListener("click",()=>{
     let peso = inputPeso.value;
 
     let comentario = comentarioInput.value;
+    
 
-        let existe = false;
+    let existe = false;
  
     if(!validarManifiestos()){
 
@@ -599,13 +688,22 @@ return;
 
         tbody.prepend(fila);
 
+        // =========================
+        // ENVIAR PESO BOG AL TV
+        // =========================
 
+        canalTV.postMessage({
+            tipo: "peso",
+            peso: pesoBOG
+        });
         limpiarCampos();
 
 
         actualizarTabla();
 
         actualizarCards();
+
+        enviarUltimasGuiasTV();
 
 
 });
@@ -1632,7 +1730,11 @@ btnCerrarLote.addEventListener("click",()=>{
 
 const btnManual = document.querySelector("#btnManual");
 
+const btnTV = document.querySelector("#btnTV");
 
+btnTV.addEventListener("click", () => {
+    window.open("diloscan://tv");
+});
 
 function calcularPesoLIQEditado() {
 
