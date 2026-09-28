@@ -77,19 +77,56 @@ ipcMain.handle("bascula:conectar", async () => {
 
         });
 
+        let bufferBascula = "";
+
         basculaPort.on("data", (data) => {
 
-            const dato = data.toString();
+            bufferBascula += data.toString();
 
-            console.log("Dato recibido de báscula:", dato);
+            console.log(
+                "Fragmento recibido:",
+                JSON.stringify(data.toString())
+            );
 
-            if (ventanaPrincipal && !ventanaPrincipal.isDestroyed()) {
-                ventanaPrincipal.webContents.send(
-                    "bascula:dato",
-                    dato
+            console.log(
+                "Buffer báscula:",
+                JSON.stringify(bufferBascula)
+            );
+
+            // Buscar un dato completo como =55.200
+            const coincidencia = bufferBascula.match(/=[0-9]+\.[0-9]+/);
+
+            if (coincidencia) {
+
+                const datoCompleto = coincidencia[0];
+
+                console.log(
+                    "Dato completo de báscula:",
+                    datoCompleto
                 );
+
+                if (
+                    ventanaPrincipal &&
+                    !ventanaPrincipal.isDestroyed()
+                ) {
+                    ventanaPrincipal.webContents.send(
+                        "bascula:dato",
+                        datoCompleto
+                    );
+                }
+
+                // Limpiar el dato que ya fue procesado
+                bufferBascula =
+                    bufferBascula.substring(
+                        bufferBascula.indexOf(datoCompleto) +
+                        datoCompleto.length
+                    );
             }
 
+            // Seguridad para evitar que el buffer crezca demasiado
+            if (bufferBascula.length > 100) {
+                bufferBascula = "";
+            }
         });
 
         basculaPort.on("error", (error) => {
