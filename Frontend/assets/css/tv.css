@@ -45,7 +45,6 @@ header h1 {
     gap: 20px;
     align-items: stretch;
 }
-
 /* =========================
    TARJETAS
    ========================= */
@@ -82,7 +81,7 @@ header h1 {
 }
 
 .tv-card:first-child {
-    display: flex;
+    display: block;
     flex-direction: column;
 }
 
@@ -91,9 +90,10 @@ header h1 {
    ========================= */
 
 .peso-tv {
-    display: flex;
+    display: block;
     flex-direction: column;
-    flex: 1;
+    flex: 1 1 0;
+    min-height: 0;
 }
 
 .titulo-peso {
@@ -104,9 +104,8 @@ header h1 {
     background: #f7f8fb;
     border: 1px solid #e1e5ec;
     border-radius: 15px;
-    min-height: 180px;
 
-    flex: 1;
+    height: 290px;
 
     display: flex;
     align-items: center;

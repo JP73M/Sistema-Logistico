@@ -1,6 +1,6 @@
 {
   "name": "DiloScan",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "Sistema de control operativo para gestión de guías, manifiestos, casilleros y pesaje.",
   "author": "DiloScan",
   "main": "main.js",
@@ -32,6 +32,7 @@
     "electron": "^44.4.1"
   },
   "dependencies": {
-    "electron-squirrel-startup": "^1.0.1"
+    "electron-squirrel-startup": "^1.0.1",
+    "serialport": "^13.0.0"
   }
 }

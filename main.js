@@ -1,8 +1,11 @@
-const { app, BrowserWindow, screen } = require("electron");
+const { app, BrowserWindow, screen, ipcMain } = require("electron");
 const path = require("path");
+const { SerialPort } = require("serialport");
 
 let ventanaPrincipal;
 let ventanaTV = null;
+
+let basculaPort = null;
 
 function createWindow() {
     ventanaPrincipal = new BrowserWindow({
@@ -10,7 +13,8 @@ function createWindow() {
         height: 900,
         webPreferences: {
             nodeIntegration: false,
-            contextIsolation: true
+            contextIsolation: true,
+            preload: path.join(__dirname, "preload.js")
         }
     });
 
@@ -34,6 +38,187 @@ function createWindow() {
         };
     });
 }
+
+// ===============================
+// CONEXIÓN CON BÁSCULA
+// ===============================
+
+ipcMain.handle("bascula:conectar", async () => {
+
+    // Si ya está conectada
+    if (basculaPort && basculaPort.isOpen) {
+        return {
+            ok: true,
+            mensaje: "La báscula ya está conectada."
+        };
+    }
+
+    try {
+
+        basculaPort = new SerialPort({
+            path: "COM3",
+            baudRate: 9600,
+            dataBits: 8,
+            parity: "none",
+            stopBits: 1,
+            autoOpen: false
+        });
+
+        basculaPort.on("open", () => {
+
+            console.log("Báscula conectada en COM3");
+
+            if (ventanaPrincipal && !ventanaPrincipal.isDestroyed()) {
+                ventanaPrincipal.webContents.send(
+                    "bascula:estado",
+                    "conectada"
+                );
+            }
+
+        });
+
+        basculaPort.on("data", (data) => {
+
+            const dato = data.toString();
+
+            console.log("Dato recibido de báscula:", dato);
+
+            if (ventanaPrincipal && !ventanaPrincipal.isDestroyed()) {
+                ventanaPrincipal.webContents.send(
+                    "bascula:dato",
+                    dato
+                );
+            }
+
+        });
+
+        basculaPort.on("error", (error) => {
+
+            console.error("Error de báscula:", error.message);
+
+            if (ventanaPrincipal && !ventanaPrincipal.isDestroyed()) {
+                ventanaPrincipal.webContents.send(
+                    "bascula:estado",
+                    "error"
+                );
+            }
+
+        });
+
+        basculaPort.on("close", () => {
+
+            console.log("Báscula desconectada");
+
+            if (ventanaPrincipal && !ventanaPrincipal.isDestroyed()) {
+                ventanaPrincipal.webContents.send(
+                    "bascula:estado",
+                    "desconectada"
+                );
+            }
+
+        });
+
+        await new Promise((resolve, reject) => {
+
+            basculaPort.open((error) => {
+
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve();
+                }
+
+            });
+
+        });
+
+        return {
+            ok: true,
+            mensaje: "Báscula conectada correctamente."
+        };
+
+    } catch (error) {
+
+        console.error(
+            "No se pudo conectar la báscula:",
+            error.message
+        );
+
+        basculaPort = null;
+
+        return {
+            ok: false,
+            mensaje: error.message
+        };
+    }
+});
+
+
+// ===============================
+// DESCONECTAR BÁSCULA
+// ===============================
+
+ipcMain.handle("bascula:desconectar", async () => {
+
+    if (!basculaPort) {
+        return {
+            ok: true,
+            mensaje: "La báscula no estaba conectada."
+        };
+    }
+
+    try {
+
+        if (basculaPort.isOpen) {
+            await new Promise((resolve) => {
+                basculaPort.close(() => {
+                    resolve();
+                });
+            });
+        }
+
+        basculaPort = null;
+
+        return {
+            ok: true,
+            mensaje: "Báscula desconectada."
+        };
+
+    } catch (error) {
+
+        console.error(
+            "Error desconectando báscula:",
+            error.message
+        );
+
+        return {
+            ok: false,
+            mensaje: error.message
+        };
+    }
+});
+
+
+// ===============================
+// SIMULACIÓN DE BÁSCULA
+// ===============================
+
+ipcMain.handle("bascula:simular", async (_event, dato) => {
+
+    console.log("Dato simulado:", dato);
+
+    if (ventanaPrincipal && !ventanaPrincipal.isDestroyed()) {
+
+        ventanaPrincipal.webContents.send(
+            "bascula:dato",
+            dato
+        );
+    }
+
+    return {
+        ok: true
+    };
+});
 
 function abrirVentanaTV() {
 
@@ -66,7 +251,8 @@ function abrirVentanaTV() {
         backgroundColor: "#ffffff",
         webPreferences: {
             nodeIntegration: false,
-            contextIsolation: true
+            contextIsolation: true,
+            preload: path.join(__dirname, "preload.js")
         }
     });
 

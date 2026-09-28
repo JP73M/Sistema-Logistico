@@ -237,6 +237,66 @@ inputPeso.addEventListener("input", ()=>{
 
 });
 
+// ==========================================
+// BÁSCULA - RECEPCIÓN DE DATOS
+// ==========================================
+
+function procesarPesoBascula(dato) {
+
+    if (!dato) {
+        return;
+    }
+
+    // Convertir el dato recibido a texto
+    let texto = String(dato).trim();
+
+    console.log("Dato recibido de báscula:", texto);
+
+    // Quitar el signo "="
+    texto = texto.replace("=", "").trim();
+
+    if (texto === "") {
+        return;
+    }
+
+    // La báscula envía el peso con los dígitos invertidos
+    const pesoInvertido = texto.split("").reverse().join("");
+
+    // Convertir a KG
+    const pesoKG = parseFloat(pesoInvertido);
+
+    if (isNaN(pesoKG)) {
+        console.log("Dato de báscula no válido:", dato);
+        return;
+    }
+
+    // Convertir KG a LB
+    const pesoLB = pesoKG * 2.20462;
+
+    // Redondear a 2 decimales
+    const pesoFinal = Number(pesoLB.toFixed(2));
+
+    console.log("Peso KG:", pesoKG);
+    console.log("Peso LB:", pesoFinal);
+
+    // Colocar el peso en el campo
+    inputPeso.value = pesoFinal;
+
+    // Disparar el evento input para que
+    // se actualice pesoActual y la pantalla TV
+    inputPeso.dispatchEvent(
+        new Event("input", { bubbles: true })
+    );
+}
+
+
+// Escuchar datos enviados desde Electron
+diloBascula.onDato((dato) => {
+
+    procesarPesoBascula(dato);
+
+});
+
 const inputGuia = document.querySelector("#inputGuia");
 
 inputPeso.addEventListener("keydown", (e) => {
