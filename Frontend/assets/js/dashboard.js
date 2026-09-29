@@ -151,91 +151,22 @@ const inputPeso = document.querySelector("#inputPeso");
 
 const canalTV = new BroadcastChannel("diloscan-tv");
 
-function enviarUltimasGuiasTV() {
-
-    const filas =
-        tbody.querySelectorAll("tr:not(.empty-row)");
-
-    const ultimasGuias = [];
-
-    filas.forEach((fila, index) => {
-
-        if (index >= 3) {
-            return;
-        }
-
-        ultimasGuias.push({
-
-            numero: index + 1,
-
-            guia:
-                fila.children[1].textContent,
-
-            trk:
-                fila.children[2].textContent,
-
-            casillero:
-                fila.children[3].textContent,
-
-            nombre:
-                fila.children[4].textContent,
-
-            pesoMIA:
-                fila.children[5].textContent,
-
-            pesoBOG:
-                fila.children[6].textContent,
-
-            pesoLIQ:
-                fila.children[7].textContent,
-
-            servicio:
-                fila.children[8].textContent,
-
-            manifiesto:
-                fila.children[9].textContent
-
-        });
-
-    });
-
-
-    canalTV.postMessage({
-
-        tipo: "lista",
-
-        guias: ultimasGuias
-
-    });
-
-}
-
 const pesoActual = document.querySelector("#pesoActual");
 
+// ==========================================
+// PESO REAL DE LA BÁSCULA
+// ==========================================
 
-inputPeso.addEventListener("input", ()=>{
+let pesoBasculaKG = 0;
+let pesoBasculaLB = 0;
 
-    if(inputPeso.value === ""){
+let ultimoPesoKG = null;
+let lecturasEstables = 0;
 
-        pesoActual.textContent = "0";
+const LECTURAS_NECESARIAS = 2;
 
-        canalTV.postMessage({
-            tipo: "peso",
-            peso: "0"
-        });
+let guiaEnfocadaPorPeso = false;
 
-    }else{
-
-        pesoActual.textContent = inputPeso.value;
-
-        canalTV.postMessage({
-            tipo: "peso",
-            peso: inputPeso.value
-        });
-
-    }
-
-});
 
 // ==========================================
 // BÁSCULA - RECEPCIÓN DE DATOS
@@ -247,53 +178,145 @@ function procesarPesoBascula(dato) {
         return;
     }
 
-    // Convertir el dato recibido a texto
     let texto = String(dato).trim();
 
     console.log("Dato recibido de báscula:", texto);
 
-    // Quitar el signo "="
+    // Quitar "="
     texto = texto.replace("=", "").trim();
 
     if (texto === "") {
         return;
     }
 
-    // La báscula envía el peso con los dígitos invertidos
-    const pesoInvertido = texto.split("").reverse().join("");
+    // La báscula envía los dígitos invertidos
+    const pesoInvertido =
+        texto.split("").reverse().join("");
 
-    // Convertir a KG
     const pesoKG = parseFloat(pesoInvertido);
 
     if (isNaN(pesoKG)) {
-        console.log("Dato de báscula no válido:", dato);
+        console.log(
+            "Dato de báscula no válido:",
+            dato
+        );
         return;
     }
 
-    // Convertir KG a LB
-    const pesoLB = pesoKG * 2.20462;
-
-    // Redondear a 2 decimales
-    const pesoFinal = Number(pesoLB.toFixed(2));
-
-    console.log("Peso KG:", pesoKG);
-    console.log("Peso LB:", pesoFinal);
-
-    // Colocar el peso en el campo
-    inputPeso.value = pesoFinal;
-
-    // Disparar el evento input para que
-    // se actualice pesoActual y la pantalla TV
-    inputPeso.dispatchEvent(
-        new Event("input", { bubbles: true })
+    console.log(
+        "Peso leído:",
+        pesoKG,
+        "KG"
     );
+
+    // ==========================================
+    // COMPROBAR ESTABILIDAD
+    // ==========================================
+
+    if (ultimoPesoKG === pesoKG) {
+
+        lecturasEstables++;
+
+    } else {
+
+        ultimoPesoKG = pesoKG;
+        lecturasEstables = 1;
+
+    }
+
+    console.log(
+        "Lecturas estables:",
+        lecturasEstables,
+        "/",
+        LECTURAS_NECESARIAS
+    );
+
+
+    // Todavía no está estable
+    if (lecturasEstables < LECTURAS_NECESARIAS) {
+        return;
+    }
+
+
+    // ==========================================
+    // PESO ESTABLE
+    // ==========================================
+
+    pesoBasculaKG = pesoKG;
+
+    pesoBasculaLB =
+        Number(
+            (pesoBasculaKG * 2.20462).toFixed(2)
+        );
+
+    console.log(
+        "PESO ESTABLE:",
+        pesoBasculaKG,
+        "KG"
+    );
+
+    console.log(
+        "PESO ESTABLE:",
+        pesoBasculaLB,
+        "LB"
+    );
+
+
+    // Mostrar solamente el número
+    // La unidad LB ya está en el diseño
+    pesoActual.textContent =
+        pesoBasculaLB.toFixed(2);
+
+
+    // Mantener el valor también en el campo
+    // de peso para compatibilidad con el sistema
+    inputPeso.value =
+        pesoBasculaLB.toFixed(2);
+
+    // Cuando hay un peso válido, pasar automáticamente
+    // el cursor al campo de número de guía
+    if (pesoBasculaLB > 0.05 && !guiaEnfocadaPorPeso) {
+
+        inputGuia.focus();
+
+        guiaEnfocadaPorPeso = true;
+
+    }
+
+
+    // Enviar peso estable a la TV
+    canalTV.postMessage({
+
+        tipo: "peso",
+
+        peso: pesoBasculaLB
+
+    });
+
 }
 
 
-// Escuchar datos enviados desde Electron
+// ==========================================
+// ESCUCHAR DATOS DE ELECTRON
+// ==========================================
+
 diloBascula.onDato((dato) => {
 
     procesarPesoBascula(dato);
+
+});
+
+
+// ==========================================
+// CONECTAR AUTOMÁTICAMENTE
+// ==========================================
+
+diloBascula.conectar().then((resultado) => {
+
+    console.log(
+        "Conexión automática de báscula:",
+        resultado
+    );
 
 });
 
@@ -772,17 +795,15 @@ return;
 
 function limpiarCampos(){
 
+    inputGuia.value = "";
+    inputPeso.value = "";
+    comentarioInput.value = "";
 
-    inputGuia.value="";
+    // Preparar el siguiente paquete
+    guiaEnfocadaPorPeso = false;
 
-    inputPeso.value="";
-
-    comentarioInput.value="";
-
+    // El siguiente paquete empieza esperando el peso
     inputPeso.focus();
-
-    pesoActual.textContent="0";
-
 }
 
 function limpiarLote(){

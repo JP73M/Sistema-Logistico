@@ -94,7 +94,7 @@ ipcMain.handle("bascula:conectar", async () => {
             );
 
             // Buscar un dato completo como =55.200
-            const coincidencia = bufferBascula.match(/=[0-9]+\.[0-9]+/);
+            const coincidencia = bufferBascula.match(/=[0-9]+\.[0-9]{3}/);
 
             if (coincidencia) {
 
