@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     });
 
-    const lista = Object.values(manifiestos);
+    const lista = Object.values(manifiestos).reverse();
 
     // Si no hay manifiestos
     if (lista.length === 0) {
