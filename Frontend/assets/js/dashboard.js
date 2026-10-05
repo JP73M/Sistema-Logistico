@@ -771,6 +771,8 @@ return;
 
         tbody.prepend(fila);
 
+        enviarUltimasGuiasTV();
+        
         // =========================
         // ENVIAR PESO BOG AL TV
         // =========================
@@ -1726,10 +1728,77 @@ btnCerrarLote.addEventListener("click",()=>{
         const faltantes =
             totalEsperadas - totalEscaneadas;
 
+        const faltantesDetalle = [];
+
+        function buscarGuiasFaltantes(lista, claseManifiesto) {
+
+            lista.forEach(item => {
+
+                if (!item.guia) {
+                    return;
+                }
+
+                const inputManifiesto =
+                    document.querySelector(
+                        `.${claseManifiesto}[data-index="${item.archivoIndex}"]`
+                    );
+
+                if (!inputManifiesto) {
+                    return;
+                }
+
+                const manifiesto =
+                    inputManifiesto.value.trim();
+
+                if (!manifiesto) {
+                    return;
+                }
+
+                const yaEscaneada =
+                    guias.some(guia =>
+
+                        String(guia.Guia || "").trim() ===
+                        String(item.guia || "").trim()
+
+                        &&
+
+                        String(guia.Manifiesto || "").trim() ===
+                        manifiesto
+
+                    );
+
+                if (!yaEscaneada) {
+
+                    faltantesDetalle.push(
+                        `Guía: ${item.guia} | Manifiesto: ${manifiesto}`
+                    );
+
+                }
+
+            });
+
+        }
+
+        buscarGuiasFaltantes(
+            baseGuias,
+            "numeroManifiesto"
+        );
+
+        buscarGuiasFaltantes(
+            baseGuiasControl,
+            "numeroManifiestoControl"
+        );
+
+        const detalleFaltantes =
+            faltantesDetalle.length > 0
+                ? faltantesDetalle.join("  •  ")
+                : "No fue posible identificar las guías faltantes.";
+
         const mensaje =
             `Se encontraron ${totalEsperadas} guías en los manifiestos, ` +
             `pero solo has escaneado ${totalEscaneadas} guías. ` +
-            `Faltan ${faltantes} guías para poder finalizar el lote.`;
+            `Faltan ${faltantes} guías para poder finalizar el lote.\n\n` +
+            `Guías faltantes:\n${detalleFaltantes}`;
 
         DiloUI.modal.error(
             "Lote incompleto",

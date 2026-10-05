@@ -26,17 +26,25 @@
 
     width: 430px;
 
+    max-height: 90vh;
+
     background: white;
 
     border-radius: 18px;
 
     padding: 35px;
 
-    box-shadow: 0 18px 40px rgba(0,0,0,.18);
+    box-shadow: 0 18px 40px rgba(0,0,0,18);
 
     text-align: center;
 
     animation: aparecer .25s ease;
+
+    display: flex;
+
+    flex-direction: column;
+
+    overflow: hidden;
 
 }
 
@@ -93,6 +101,12 @@
     line-height:26px;
 
     margin-bottom:30px;
+
+    max-height: 55vh;
+
+    overflow-y: auto;
+
+    padding-right: 8px;
 
 }
 
