@@ -39,7 +39,8 @@ header h1 {
 
 .tv-container {
     width: 100%;
-    padding: 35px;
+    height: calc(50vh - 46px);
+    padding: 20px 35px 10px;
     display: grid;
     grid-template-columns: 1fr 1.5fr;
     gap: 20px;
@@ -52,8 +53,8 @@ header h1 {
 .tv-card {
     background: white;
     border-radius: 18px;
-    padding: 28px;
-    min-height: 400px;
+    padding: 24px;
+    min-height: 0;
     height: 100%;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
 }
@@ -105,7 +106,7 @@ header h1 {
     border: 1px solid #e1e5ec;
     border-radius: 15px;
 
-    height: 290px;
+    height: 190px;
 
     display: flex;
     align-items: center;
@@ -162,10 +163,10 @@ header h1 {
     justify-content: space-between;
     align-items: center;
 
-    padding: 18px 0;
+    padding: 10px 0;
     border-bottom: 1px solid #e5e7eb;
 
-    font-size: 22px;
+    font-size: 20px;
 }
 
 .info-fila:last-child {

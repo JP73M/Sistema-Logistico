@@ -484,6 +484,41 @@ inputGuia.addEventListener("input", ()=>{
 
 const btnAgregar = document.querySelector("#btnAgregar");
 
+function enviarUltimasGuiasTV() {
+
+    const filas =
+        tbody.querySelectorAll("tr:not(.empty-row)");
+
+    const ultimasGuias = [];
+
+    Array.from(filas)
+        .slice(0, 3)
+        .forEach((fila) => {
+
+            ultimasGuias.push({
+
+                numero: fila.children[0].textContent,
+                guia: fila.children[1].textContent,
+                trk: fila.children[2].textContent,
+                casillero: fila.children[3].textContent,
+                nombre: fila.children[4].textContent,
+                pesoMIA: fila.children[5].textContent,
+                pesoBOG: fila.children[6].textContent,
+                pesoLIQ: fila.children[7].textContent,
+                servicio: fila.children[8].textContent,
+                manifiesto: fila.children[9].textContent
+
+            });
+
+        });
+
+    canalTV.postMessage({
+        tipo: "lista",
+        guias: ultimasGuias
+    });
+
+}
+
 const btnCerrarLote =
 document.querySelector("#btnCerrarLote");
 
@@ -801,10 +836,10 @@ function limpiarCampos(){
     inputPeso.value = "";
     comentarioInput.value = "";
 
-    // Preparar el siguiente paquete
     guiaEnfocadaPorPeso = false;
 
-    // El siguiente paquete empieza esperando el peso
+    pesoActual.textContent = "0";
+
     inputPeso.focus();
 }
 
@@ -1446,7 +1481,6 @@ excelCasilleros.addEventListener("change",(e)=>{
         }, 300);
 
     });
-    
     
     
 
