@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>DiloScan - Reportes</title>
+
+    <link
+        rel="icon"
+        href="../assets/img/Logo_D_White.png"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../assets/css/reportes.css"
+    >
+
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- ================================= -->
+    <!-- SIDEBAR -->
+    <!-- ================================= -->
+
+    <aside class="sidebar">
+
+        <div class="logo_sidebar">
+
+            <img
+                src="../assets/img/Logo-Complete-Blue.png"
+                alt="DiloScan"
+            >
+
+        </div>
+
+
+        <nav>
+
+            <a href="dashboard.html">
+
+                <img
+                    src="../assets/img/icons/Home.png"
+                    alt=""
+                >
+
+                Dashboard
+
+            </a>
+
+
+            <a href="historial.html">
+
+                <img
+                    src="../assets/img/icons/Docs.png"
+                    alt=""
+                >
+
+                Historial
+
+            </a>
+
+
+            <a href="manifiesto.html">
+
+                <img
+                    src="../assets/img/icons/Truck.png"
+                    alt=""
+                >
+
+                Manifiestos
+
+            </a>
+
+
+            <a href="usuarios.html">
+
+                <img
+                    src="../assets/icons/user.png"
+                    alt=""
+                >
+
+                Usuarios
+
+            </a>
+
+
+            <a
+                href="reportes.html"
+            >
+
+                <img
+                    src="../assets/img/icons/Report.png"
+                    alt=""
+                >
+
+                Reportes
+
+            </a>
+
+
+            <a href="#">
+
+                <img
+                    src="../assets/img/icons/Configuration.png"
+                    alt=""
+                >
+
+                Configuración
+
+            </a>
+
+        </nav>
+
+
+        <div class="logout">
+
+            <a
+                href="login.html"
+                id="btnCerrarSesion"
+            >
+
+                <img
+                    src="../assets/img/icons/Logout.png"
+                    alt=""
+                >
+
+                Cerrar sesión
+
+            </a>
+
+        </div>
+
+
+        <span class="span">
+            Versión 1.2.2
+        </span>
+
+    </aside>
+
+
+
+    <!-- ================================= -->
+    <!-- CONTENIDO -->
+    <!-- ================================= -->
+
+    <main class="content">
+
+
+        <!-- HEADER -->
+
+        <header class="header">
+
+
+            <div class="header-title">
+
+                <h1>
+                    Reportes
+                </h1>
+
+                <p>
+                    Consulta, analiza y exporta la información de tus operaciones.
+                </p>
+
+            </div>
+
+
+
+            <div class="header-user">
+
+
+                <div class="notification">
+
+                    <img
+                        src="../assets/img/icons/notificacion.png"
+                        alt=""
+                    >
+
+                </div>
+
+
+                <div
+                    class="avatar"
+                    id="avatarUsuario"
+                >
+                    US
+                </div>
+
+
+                <div class="user-info">
+
+                    <div class="user-name">
+
+                        <h4 id="nombreUsuarioPerfil">
+                            Usuario
+                        </h4>
+
+                        <img
+                            src="../assets/img/icons/arrow.png"
+                            alt=""
+                        >
+
+                    </div>
+
+                    <span>
+                        Operador
+                    </span>
+
+                </div>
+
+
+            </div>
+
+        </header>
+
+
+
+        <!-- ================================= -->
+        <!-- TIPOS DE REPORTE -->
+        <!-- ================================= -->
+
+        <section class="report-tabs">
+
+
+            <button class="report-tab active" id="btnReporteResumen">
+
+                <img
+                    src="../assets/img/icons/Report.png"
+                    alt=""
+                >
+
+                Resumen
+
+            </button>
+
+
+            <button class="report-tab">
+
+                <img
+                    src="../assets/img/icons/Docs.png"
+                    alt=""
+                >
+
+                Guías procesadas
+
+            </button>
+
+
+            <button
+                class="report-tab"
+                id="btnReporteLotes"
+            >
+                <img
+                    src="../assets/img/icons/Truck.png"
+                    alt=""
+                >
+
+                Lotes cerrados
+            </button>
+
+
+            <button class="report-tab">
+
+                Por usuario
+
+            </button>
+
+
+            <button class="report-tab">
+
+                Por servicio
+
+            </button>
+
+
+            <button class="report-tab">
+
+                Por casillero
+
+            </button>
+
+        </section>
+
+
+
+        <!-- ================================= -->
+        <!-- FILTROS -->
+        <!-- ================================= -->
+
+        <section class="filter-card">
+
+
+            <div class="section-title">
+
+                <h2>
+                    Filtros del reporte
+                </h2>
+
+                <p>
+                    Selecciona los criterios para consultar la información.
+                </p>
+
+            </div>
+
+
+
+            <div class="filters">
+
+
+                <div class="filter-group">
+
+                    <label>
+                        Fecha inicio
+                    </label>
+
+                    <input
+                        type="date"
+                        id="fechaInicio"
+                    >
+
+                </div>
+
+
+                <div class="filter-group">
+
+                    <label>
+                        Fecha fin
+                    </label>
+
+                    <input
+                        type="date"
+                        id="fechaFin"
+                    >
+
+                </div>
+
+
+                <div class="filter-group">
+
+                    <label>
+                        Manifiesto
+                    </label>
+
+                    <select id="filtroManifiesto">
+
+                        <option value="">
+                            Todos
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="filter-group">
+
+                    <label>
+                        Servicio
+                    </label>
+
+                    <select id="filtroServicio">
+
+                        <option value="">
+                            Todos
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="filter-group">
+
+                    <label>
+                        Usuario
+                    </label>
+
+                    <select id="filtroUsuario">
+
+                        <option value="">
+                            Todos
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <button
+                    class="btn-generar"
+                    id="btnGenerarReporte"
+                >
+
+                    <img
+                        src="../assets/img/icons/Report.png"
+                        alt=""
+                    >
+
+                    Generar reporte
+
+                </button>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================================= -->
+        <!-- TARJETAS RESUMEN -->
+        <!-- ================================= -->
+
+        <section class="report-cards">
+
+
+            <div class="report-card">
+
+                <div class="report-card-icon blue">
+
+                    <img
+                        src="../assets/img/icons/Docs.png"
+                        alt=""
+                    >
+
+                </div>
+
+                <div>
+
+                    <span>
+                        Guías procesadas
+                    </span>
+
+                    <strong id="totalGuiasReporte">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="report-card">
+
+                <div class="report-card-icon green">
+
+                    <span>
+                        LB
+                    </span>
+
+                </div>
+
+                <div>
+
+                    <span>
+                        Peso total LIQ
+                    </span>
+
+                    <strong id="pesoTotalReporte">
+                        0 LB
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="report-card">
+
+                <div class="report-card-icon purple">
+
+                    <img
+                        src="../assets/img/icons/Truck.png"
+                        alt=""
+                    >
+
+                </div>
+
+                <div>
+
+                    <span>
+                        Lotes cerrados
+                    </span>
+
+                    <strong id="totalLotesReporte">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="report-card">
+
+                <div class="report-card-icon orange">
+
+                    <img
+                        src="../assets/img/icons/Docs.png"
+                        alt=""
+                    >
+
+                </div>
+
+                <div>
+
+                    <span>
+                        Manifiestos
+                    </span>
+
+                    <strong id="totalManifiestosReporte">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ================================= -->
+        <!-- CONTENIDO PRINCIPAL -->
+        <!-- ================================= -->
+
+        <section class="report-content">
+
+
+            <!-- TABLA -->
+
+            <div class="table-card">
+
+
+                <div class="table-header">
+
+                    <div>
+
+                        <h2>
+                            Detalle de guías procesadas
+                        </h2>
+
+                        <span id="cantidadRegistros">
+                            0 registros
+                        </span>
+
+                    </div>
+
+
+                    <input
+                        type="text"
+                        id="buscarReporte"
+                        placeholder="Buscar guía, TRK, casillero..."
+                    >
+
+                </div>
+
+
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>#</th>
+
+                                <th>Fecha / Hora</th>
+
+                                <th>Guía</th>
+
+                                <th>TRK</th>
+
+                                <th>Casillero</th>
+
+                                <th>Nombre</th>
+
+                                <th>MIA</th>
+
+                                <th>BOG</th>
+
+                                <th>LIQ</th>
+
+                                <th>Servicio</th>
+
+                                <th>Manifiesto</th>
+
+                                <th>Usuario</th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody id="tablaReportes">
+
+                            <tr class="fila-vacia">
+
+                                <td colspan="12">
+
+                                    No hay información para mostrar.
+
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- PANEL LATERAL -->
+
+            <div class="side-reports">
+
+
+                <div class="quick-card">
+
+                    <h2>
+                        Reportes disponibles
+                    </h2>
+
+
+                    <button>
+                        📦 Lotes cerrados
+                    </button>
+
+
+                    <button>
+                        📋 Guías procesadas
+                    </button>
+
+
+                    <button>
+                        📅 Reporte diario
+                    </button>
+
+
+                    <button>
+                        🗓️ Por rango de fechas
+                    </button>
+
+
+                    <button>
+                        ⚖️ Peso total
+                    </button>
+
+
+                    <button>
+                        👤 Productividad por usuario
+                    </button>
+
+
+                    <button>
+                        🚚 Por servicio
+                    </button>
+
+
+                    <button>
+                        📦 Por casillero
+                    </button>
+
+                </div>
+
+
+
+                <div class="export-card">
+
+                    <h2>
+                        Exportar reporte
+                    </h2>
+
+                    <p>
+                        Próximamente podrás descargar el reporte.
+                    </p>
+
+
+                    <div class="export-buttons">
+
+                        <button class="excel">
+                            Excel
+                        </button>
+
+                        <button class="pdf">
+                            PDF
+                        </button>
+
+                        <button class="print">
+                            Imprimir
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+</div>
+
+
+<script src="../assets/js/reportes.js"></script>
+
+</body>
+
+</html>

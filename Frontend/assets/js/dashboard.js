@@ -1,3 +1,63 @@
+// ========================================
+// USUARIO ACTIVO
+// ========================================
+
+const usuarioActivo =
+    JSON.parse(
+        localStorage.getItem("usuarioActivo")
+    );
+
+const nombreUsuarioActivo =
+    document.querySelector("#nombreUsuarioActivo");
+
+const nombreUsuarioPerfil =
+    document.querySelector("#nombreUsuarioPerfil");
+
+const avatarUsuario =
+    document.querySelector("#avatarUsuario");
+
+if(usuarioActivo){
+
+    // Nombre del saludo
+    if(nombreUsuarioActivo){
+        nombreUsuarioActivo.textContent =
+            usuarioActivo.nombre;
+    }
+
+    // Nombre del perfil
+    if(nombreUsuarioPerfil){
+        nombreUsuarioPerfil.textContent =
+            usuarioActivo.nombre;
+    }
+
+    // Iniciales del avatar
+    if(avatarUsuario){
+
+        const partesNombre =
+            usuarioActivo.nombre.trim().split(/\s+/);
+
+        let iniciales = "";
+
+        if(partesNombre.length >= 2){
+
+            iniciales =
+                partesNombre[0].charAt(0) +
+                partesNombre[1].charAt(0);
+
+        }else{
+
+            iniciales =
+                partesNombre[0].substring(0, 2);
+
+        }
+
+        avatarUsuario.textContent =
+            iniciales.toUpperCase();
+
+    }
+
+}
+
 function logout(){
     
     window.location.href="../pages/login.html";
@@ -754,7 +814,7 @@ return;
 
         // Demás usuarios:
         // Peso LIQ = mayor entre MIA y BOG
-        pesoLIQ = Math.ceil(
+        pesoLIQ = Math.round(
             Math.max(pesoMIA, pesoBOG)
         );
     }
@@ -974,6 +1034,8 @@ tbody.addEventListener("click", (e) => {
 
         actualizarTabla();
         actualizarCards();
+
+        enviarUltimasGuiasTV();
 
     }
 
@@ -1843,25 +1905,29 @@ btnCerrarLote.addEventListener("click",()=>{
     }
 
 
-    let lote = {
+    let usuarioActivo =
+        JSON.parse(
+            localStorage.getItem("usuarioActivo")
+        );
 
+    let lote = {
 
         fecha:
         new Date().toLocaleString(),
 
-
         cantidad:
         guias.length,
-
 
         peso:
         pesoTotal.textContent,
 
+        usuario:
+        usuarioActivo
+            ? usuarioActivo.nombre
+            : "Usuario desconocido",
 
         guias:
         guias
-
-
     };
 
     let lotesGuardados =
@@ -1946,7 +2012,7 @@ function calcularPesoLIQEditado() {
     } else {
 
         editPesoLIQ.value =
-            Math.ceil(
+            Math.round(
                 Math.max(pesoMIA, pesoBOG)
             );
     }

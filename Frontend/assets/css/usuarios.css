@@ -1,0 +1,320 @@
+/* ================================
+   MÓDULO USUARIOS
+================================ */
+
+.usuarios-content {
+    padding: 30px;
+}
+
+
+/* ================================
+   ENCABEZADO
+================================ */
+
+.usuarios-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+}
+
+.usuarios-header h1 {
+    margin: 0 0 6px;
+    color: #27348b;
+    font-size: 30px;
+}
+
+.usuarios-header p {
+    margin: 0;
+    color: #6b7280;
+    font-size: 16px;
+}
+
+
+/* ================================
+   BOTÓN NUEVO USUARIO
+================================ */
+
+.btn-nuevo-usuario {
+    background: #27348b;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 13px 22px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.btn-nuevo-usuario:hover {
+    background: #1f2b75;
+    transform: translateY(-1px);
+}
+
+
+/* ================================
+   TARJETA
+================================ */
+
+.usuarios-card {
+    background: white;
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.05);
+}
+
+.usuarios-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.usuarios-card-header h2 {
+    margin: 0;
+    font-size: 20px;
+    color: #111827;
+}
+
+#contadorUsuarios {
+    color: #6b7280;
+    font-size: 14px;
+}
+
+
+/* ================================
+   TABLA
+================================ */
+
+.tabla-usuarios-container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.tabla-usuarios {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabla-usuarios thead {
+    background: #111827;
+}
+
+.tabla-usuarios th {
+    padding: 15px;
+    color: white;
+    text-align: left;
+    font-size: 14px;
+}
+
+.tabla-usuarios td {
+    padding: 16px 15px;
+    border-bottom: 1px solid #e5e7eb;
+    color: #374151;
+    font-size: 15px;
+}
+
+.tabla-usuarios tbody tr:hover {
+    background: #f8f9fc;
+}
+
+
+/* ================================
+   TABLA VACÍA
+================================ */
+
+.usuarios-vacio td {
+    text-align: center;
+    padding: 40px;
+    color: #9ca3af;
+}
+
+
+/* ================================
+   MODAL
+================================ */
+
+.usuario-modal-overlay {
+    position: fixed;
+    inset: 0;
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(15, 23, 42, 0.45);
+
+    z-index: 9999;
+}
+
+.usuario-modal-overlay.activo {
+    display: flex;
+}
+
+.usuario-modal {
+    width: 430px;
+    max-width: calc(100% - 40px);
+
+    background: white;
+    border-radius: 18px;
+    padding: 30px;
+
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+}
+
+
+/* ================================
+   CABECERA MODAL
+================================ */
+
+.usuario-modal-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 25px;
+}
+
+.usuario-modal-header h2 {
+    margin: 0 0 6px;
+    color: #111827;
+    font-size: 22px;
+}
+
+.usuario-modal-header p {
+    margin: 0;
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.usuario-modal-close {
+    width: 32px;
+    height: 32px;
+
+    border: none;
+    background: #f3f4f6;
+    border-radius: 8px;
+
+    font-size: 22px;
+    line-height: 1;
+
+    cursor: pointer;
+    color: #374151;
+}
+
+.usuario-modal-close:hover {
+    background: #e5e7eb;
+}
+
+
+/* ================================
+   FORMULARIO
+================================ */
+
+.usuario-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.usuario-form label {
+    margin-bottom: 7px;
+
+    color: #111827;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.usuario-form input {
+    width: 100%;
+    box-sizing: border-box;
+
+    padding: 13px 14px;
+    margin-bottom: 18px;
+
+    border: 1px solid #d1d5db;
+    border-radius: 9px;
+
+    outline: none;
+
+    font-size: 15px;
+}
+
+.usuario-form input:focus {
+    border-color: #27348b;
+    box-shadow: 0 0 0 3px rgba(39, 52, 139, 0.08);
+}
+
+
+/* ================================
+   BOTONES MODAL
+================================ */
+
+.usuario-modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+
+    margin-top: 8px;
+}
+
+.btn-cancelar-usuario,
+.btn-guardar-usuario {
+    padding: 11px 18px;
+
+    border-radius: 9px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+.btn-cancelar-usuario {
+    border: 1px solid #d1d5db;
+    background: white;
+    color: #374151;
+}
+
+.btn-cancelar-usuario:hover {
+    background: #f3f4f6;
+}
+
+.btn-guardar-usuario {
+    border: none;
+    background: #27348b;
+    color: white;
+}
+
+.btn-guardar-usuario:hover {
+    background: #1f2b75;
+}
+
+
+/* ================================
+   BOTÓN ELIMINAR
+================================ */
+
+.btn-eliminar-usuario {
+    width: 36px;
+    height: 36px;
+
+    border: none;
+    border-radius: 8px;
+
+    background: #ffe1e1;
+
+    cursor: pointer;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-eliminar-usuario:hover {
+    background: #ffd0d0;
+}
+
+.btn-eliminar-usuario img {
+    width: 18px;
+    height: 18px;
+}

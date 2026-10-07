@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>DiloScan - Usuarios</title>
+
+    <link rel="icon" href="../assets/img/Logo_D_White.png">
+
+    <!-- CSS general del sistema -->
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+
+    <!-- CSS del módulo usuarios -->
+    <link rel="stylesheet" href="../assets/css/usuarios.css">
+</head>
+
+<body>
+
+    <div class="dashboard">
+
+        <aside class="sidebar">
+
+            <div class="logo_sidebar">
+                <img
+                    src="../assets/img/Logo-Complete-Blue.png"
+                    alt="">
+            </div>
+
+            <nav>
+
+                <a href="dashboard.html">
+                    <img
+                        src="../assets/img/icons/Home.png"
+                        alt="">
+                    Dashboard
+                </a>
+
+                <a href="historial.html">
+                    <img
+                        src="../assets/img/icons/Docs.png"
+                        alt="">
+                    Historial
+                </a>
+
+                <a href="manifiesto.html">
+                    <img
+                        src="../assets/img/icons/Truck.png"
+                        alt="">
+                    Manifiestos
+                </a>
+
+                <a class="active" href="usuarios.html">
+                    <img
+                        src="../assets/icons/user.png"
+                        alt="">
+                    Usuarios
+                </a>
+
+                <a href="reportes.html">
+                    <img
+                        src="../assets/img/icons/Report.png"
+                        alt="">
+                    Reportes
+                </a>
+
+                <a href="configuracion.html">
+                    <img
+                        src="../assets/img/icons/Configuration.png"
+                        alt="">
+                    Configuración
+                </a>
+
+            </nav>
+
+            <div class="logout">
+
+                <a href="#" id="btnCerrarSesion">
+                    <img
+                        src="../assets/img/icons/Logout.png"
+                        alt="">
+                    Cerrar sesión
+                </a>
+
+            </div>
+
+            <span class="span">
+                Versión 1.2.2
+            </span>
+
+        </aside>
+
+        <!-- CONTENIDO -->
+        <main class="content usuarios-content">
+
+            <div class="usuarios-header">
+
+                <div>
+                    <h1>Usuarios</h1>
+                    <p>Gestiona los usuarios que pueden ingresar a DiloScan.</p>
+                </div>
+
+                <button id="btnNuevoUsuario" class="btn-nuevo-usuario">
+                    + Nuevo usuario
+                </button>
+
+            </div>
+
+
+            <!-- TABLA -->
+            <section class="usuarios-card">
+
+                <div class="usuarios-card-header">
+                    <h2>Usuarios registrados</h2>
+
+                    <span id="contadorUsuarios">
+                        0 usuarios
+                    </span>
+                </div>
+
+                <div class="tabla-usuarios-container">
+
+                    <table class="tabla-usuarios">
+
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Usuario</th>
+                                <th>Acción</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="listaUsuarios">
+
+                            <tr class="usuarios-vacio">
+                                <td colspan="3">
+                                    No hay usuarios registrados
+                                </td>
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <!-- MODAL NUEVO USUARIO -->
+    <div id="modalUsuario" class="usuario-modal-overlay">
+
+        <div class="usuario-modal">
+
+            <div class="usuario-modal-header">
+
+                <div>
+                    <h2>Nuevo usuario</h2>
+                    <p>Crea una cuenta para ingresar a DiloScan.</p>
+                </div>
+
+                <button id="btnCerrarModalUsuario" class="usuario-modal-close">
+                    ×
+                </button>
+
+            </div>
+
+
+            <div class="usuario-form">
+
+                <label for="nombreUsuario">
+                    Nombre completo
+                </label>
+
+                <input
+                    type="text"
+                    id="nombreUsuario"
+                    placeholder="Ej. Juan Melo">
+
+
+                <label for="usuarioUsuario">
+                    Usuario
+                </label>
+
+                <input
+                    type="text"
+                    id="usuarioUsuario"
+                    placeholder="Ej. juan.melo">
+
+
+                <label for="passwordUsuario">
+                    Contraseña
+                </label>
+
+                <input
+                    type="password"
+                    id="passwordUsuario"
+                    placeholder="Ingrese una contraseña">
+
+
+                <div class="usuario-modal-actions">
+
+                    <button
+                        id="btnCancelarUsuario"
+                        class="btn-cancelar-usuario">
+
+                        Cancelar
+
+                    </button>
+
+                    <button
+                        id="btnGuardarUsuario"
+                        class="btn-guardar-usuario">
+
+                        Crear usuario
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script src="../assets/js/usuarios.js"></script>
+
+</body>
+</html>
