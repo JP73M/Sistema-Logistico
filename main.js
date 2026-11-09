@@ -19,7 +19,7 @@ function createWindow() {
     });
 
     ventanaPrincipal.loadFile(
-        path.join(__dirname, "Frontend", "pages", "login.html")
+        path.join(__dirname, "Frontend", "pages", "dashboard.html")
     );
 
     // Permitir que el Dashboard solicite abrir la TV
